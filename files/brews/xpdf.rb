@@ -5,6 +5,8 @@ class Xpdf < Formula
   url 'ftp://ftp.foolabs.com/pub/xpdf/xpdf-3.03.tar.gz'
   md5 'af75f772bee0e5ae4a811ff9d03eac5a'
 
+  version '3.03-boxen1'
+
   depends_on 'lesstif'
   depends_on :x11
 

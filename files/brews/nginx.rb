@@ -4,7 +4,7 @@ class Nginx < Formula
   homepage 'http://nginx.org/'
   url 'http://nginx.org/download/nginx-1.0.14.tar.gz'
   md5 '019844e48c34952253ca26dd6e28c35c'
-  version '1.0.14-github1'
+  version '1.0.14-boxen1'
 
   devel do
     url 'http://nginx.org/download/nginx-1.1.18.tar.gz'

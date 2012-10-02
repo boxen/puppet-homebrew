@@ -4,7 +4,7 @@ class Riak < Formula
   homepage 'http://wiki.basho.com/Riak.html'
 
   url 'http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.2/riak-1.1.2-osx-x86_64.tar.gz'
-  version '1.1.2-x86_64-github1'
+  version '1.1.2-x86_64-boxen1'
   sha256 '84ca1068125abcbe9bcab47be3222ffbb7f8bca2125d5b6005af8ec33460a266'
 
   skip_clean :all

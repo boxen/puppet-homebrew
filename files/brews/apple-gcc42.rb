@@ -17,7 +17,7 @@ class AppleGcc42 < Formula
   homepage 'http://r.research.att.com/tools/'
   url 'http://r.research.att.com/tools/gcc-42-5666.3-darwin11.pkg'
   md5 '3ccf46da27aaba17706b420711fb997e'
-  version '4.2.1-5666.3-github1'
+  version '4.2.1-5666.3-boxen1'
 
 
   def download_strategy

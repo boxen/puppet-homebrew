@@ -4,7 +4,7 @@ class Memcached < Formula
   url "http://memcached.googlecode.com/files/memcached-1.4.13.tar.gz"
   homepage 'http://memcached.org/'
   sha1 'd9a48d222de53a2603fbab6156d48d0e8936ee92'
-  version '1.4.13-github1'
+  version '1.4.13-boxen1'
 
   depends_on 'libevent'
 

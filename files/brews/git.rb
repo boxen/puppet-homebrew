@@ -14,7 +14,7 @@ class Git < Formula
   homepage 'http://git-scm.com'
   url 'http://git-core.googlecode.com/files/git-1.7.10.4.tar.gz'
   sha1 'ddc305ab520246790faa72bbaab4b9bf5bcf23fa'
-  version '1.7.10.4-github1'
+  version '1.7.10.4-boxen1'
 
   head 'https://github.com/git/git.git'
 

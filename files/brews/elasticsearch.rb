@@ -4,7 +4,7 @@ class Elasticsearch < Formula
   homepage 'http://www.elasticsearch.org'
   url 'https://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.19.9.tar.gz'
   sha1 '699b442ab2d9483084689dee037b5eea38a76652'
-  version '0.19.9-github1'
+  version '0.19.9-boxen1'
 
   def cluster_name
     "elasticsearch_#{ENV['USER']}"

@@ -10,7 +10,7 @@ class Ghostscript < Formula
   homepage 'http://www.ghostscript.com/'
   url 'http://github-setup.s3.amazonaws.com/ghostscript-9.05.tar.gz'
   md5 'f7c6f0431ca8d44ee132a55d583212c1'
-  version '9.05-github1'
+  version '9.05-boxen1'
 
   head 'git://git.ghostscript.com/ghostpdl.git'
 

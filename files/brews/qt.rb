@@ -21,7 +21,7 @@ class Qt < Formula
     build 421
   end
 
-  version '4.8.2-github1'
+  version '4.8.2-boxen1'
 
   def patches
     # fixes conflict on osx 10.5. See qt bug:

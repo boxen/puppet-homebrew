@@ -5,7 +5,7 @@ class Emacs < Formula
   url 'http://ftpmirror.gnu.org/emacs/emacs-24.1.tar.bz2'
   mirror 'http://ftp.gnu.org/pub/gnu/emacs/emacs-24.1.tar.bz2'
   sha1 'ab22d5bf2072d04faa4aebf819fef3dfe44aacca'
-  version '24.1-github1'
+  version '24.1-boxen1'
 
   # Stripping on Xcode 4 causes malformed object errors.
   # Just skip everything.

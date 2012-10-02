@@ -4,7 +4,7 @@ class Dpkg < Formula
   homepage 'http://en.wikipedia.org/wiki/Dpkg'
   url 'http://ftp.debian.org/debian/pool/main/d/dpkg/dpkg_1.15.8.12.tar.bz2'
   md5 '0cd6f20a574d0df31298e70fc3b26173'
-  version '1.15.8.12-github1'
+  version '1.15.8.12-boxen1'
 
   depends_on 'pkg-config' => :build
   depends_on 'gnu-tar'

@@ -4,7 +4,7 @@ class Postgresql < Formula
   homepage 'http://www.postgresql.org/'
   url 'http://ftp.postgresql.org/pub/source/v9.1.4/postgresql-9.1.4.tar.bz2'
   md5 'a8035688dba988b782725ac1aec60186'
-  version '9.1.4-github2'
+  version '9.1.4-boxen2'
 
   depends_on 'ossp-uuid'
 
