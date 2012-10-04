@@ -1,3 +1,8 @@
+# Public: Install and configure homebrew for use with Boxen.
+#
+# Examples
+#
+#   include homebrew
 class homebrew {
   require boxen::config
 
