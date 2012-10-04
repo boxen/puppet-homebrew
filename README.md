@@ -3,7 +3,6 @@
 Requires the following boxen modules:
 
 * `boxen`
-* `xcode`
 
 Really, just serves to put our monkey patches in place.
 Also creates a taps dir for Boxen at `homebrew::boxenbrewsdir`

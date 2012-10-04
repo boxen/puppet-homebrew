@@ -1,6 +1,5 @@
 class homebrew {
   require boxen::config
-  require xcode
 
   $dir           = "${boxen::config::home}/homebrew"
   $cmddir        = "${dir}/Library/Homebrew/cmd"
