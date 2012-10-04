@@ -17,7 +17,7 @@ class Dnsmasq < Formula
 
     # Fix etc location
     inreplace "src/config.h", "/etc/dnsmasq.conf",
-      "/opt/github/config/dnsmasq/dnsmasq.conf"
+      "/opt/boxen/config/dnsmasq/dnsmasq.conf"
 
     # Optional IDN support
     if ARGV.include? '--with-idn'

@@ -41,9 +41,9 @@ class Nginx < Formula
             "--with-pcre",
             "--with-cc-opt='-I#{HOMEBREW_PREFIX}/include'",
             "--with-ld-opt='-L#{HOMEBREW_PREFIX}/lib'",
-            "--conf-path=/opt/github/config/nginx/nginx.conf",
-            "--pid-path=/opt/github/data/nginx/nginx.pid",
-            "--lock-path=/opt/gihub/data/nginx/nginx.lock"]
+            "--conf-path=/opt/boxen/config/nginx/nginx.conf",
+            "--pid-path=/opt/boxen/data/nginx/nginx.pid",
+            "--lock-path=/opt/boxen/data/nginx/nginx.lock"]
 
     args << passenger_config_args if ARGV.include? '--with-passenger'
     args << "--with-http_dav_module" if ARGV.include? '--with-webdav'

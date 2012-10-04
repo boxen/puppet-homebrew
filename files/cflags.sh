@@ -1,1 +1,1 @@
-export CFLAGS="-I$GH_HOME/homebrew/include"
+export CFLAGS="-I$BOXEN_HOME/homebrew/include"

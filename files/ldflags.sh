@@ -1,1 +1,1 @@
-export LDFLAGS="-L$GH_HOME/homebrew/lib"
+export LDFLAGS="-L$BOXEN_HOME/homebrew/lib"
