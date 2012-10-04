@@ -5,7 +5,7 @@ class homebrew {
   $cmddir        = "${dir}/Library/Homebrew/cmd"
   $tapsdir       = "${dir}/Library/Taps"
   $boxenbrewsdir = "${tapsdir}/boxen-brews"
-  $url           = 'https://boxen.com/mxcl/homebrew/tarball/122c0b2'
+  $url           = 'https://github.com/mxcl/homebrew/tarball/122c0b2'
 
   file { $dir:
     ensure => 'directory'
