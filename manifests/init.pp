@@ -22,7 +22,7 @@ class homebrew {
   }
 
   exec { 'install-homebrew':
-    command => "curl -L $url | tar xz --strip 1 -C ${dir}",
+    command => "curl -L ${url} | tar xz --strip 1 -C ${dir}",
     creates => "${dir}/bin/brew",
     require => File[$dir]
   }
