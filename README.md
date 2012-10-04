@@ -13,3 +13,9 @@ that allows other modules to drop custom brews in.
 ```puppet
 include homebrew
 ```
+
+## Developing
+
+Write code.
+
+Run `script/cibuild`.
