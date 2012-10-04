@@ -1,2 +1,6 @@
 /.bundle/
 /bin/
+/spec/fixtures/.librarian/
+/spec/fixtures/.tmp/
+/spec/fixtures/vendor/
+/spec/fixtures/modules/boxen/
