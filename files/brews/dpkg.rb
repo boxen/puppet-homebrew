@@ -2,8 +2,8 @@ require 'formula'
 
 class Dpkg < Formula
   homepage 'http://en.wikipedia.org/wiki/Dpkg'
-  url 'http://ftp.debian.org/debian/pool/main/d/dpkg/dpkg_1.15.8.12.tar.bz2'
-  md5 '0cd6f20a574d0df31298e70fc3b26173'
+  url 'http://ftp.debian.org/debian/pool/main/d/dpkg/dpkg_1.15.8.13.tar.bz2'
+  md5 '7f6ea19838311a66fdacce17991eba85'
   version '1.15.8.12-boxen1'
 
   depends_on 'pkg-config' => :build
