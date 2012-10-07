@@ -1,10 +1,10 @@
 require 'formula'
 
 class Solr < Formula
-  url 'http://www.apache.org/dyn/closer.cgi?path=lucene/solr/3.5.0/apache-solr-3.5.0.tgz'
+  url 'http://www.apache.org/dyn/closer.cgi?path=lucene/solr/3.6.1/apache-solr-3.6.1.tgz'
   homepage 'http://lucene.apache.org/solr/'
-  md5 'b7be2fc190b26377ced5ae6055ed43e2'
-  version '3.5.0-boxen1'
+  md5 'da88834d17921ff165d85adf95c78e2a'
+  version '3.6.1-boxen1'
 
   def script; <<-EOS.undent
     #!/bin/sh
