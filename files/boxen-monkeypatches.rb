@@ -14,8 +14,9 @@ class FormulaInstaller
   def boxen_snapshot_url
     os   = MACOS_VERSION
     file = "#{f.name}-#{f.version}.tar.bz2"
+    bucket = ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
 
-    "http://s3.amazonaws.com/boxen/homebrew/#{os}/#{file}"
+    "http://s3.amazonaws.com/#{bucket}/homebrew/#{os}/#{file}"
   end
 
   def install_bottle
