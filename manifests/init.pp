@@ -83,4 +83,8 @@ class homebrew {
     ensure  => '4.2.1-5666.3-boxen1',
     require => File[$boxenbrewsdir]
   }
+
+  file { "${boxen::config::envdir}/homebrew.sh":
+    content => template('homebrew/env.sh.erb')
+  }
 }

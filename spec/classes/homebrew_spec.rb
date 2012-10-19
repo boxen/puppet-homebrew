@@ -87,4 +87,10 @@ describe 'homebrew' do
       :group  => 'admin'
     })
   end
+
+  it do
+    should contain_file('/opt/boxen/env.d/homebrew.sh').with({
+      :content => "export HOMEBREW_CACHE=$BOXEN_HOME/cache/homebrew\n"
+    })
+  end
 end
