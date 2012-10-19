@@ -11,9 +11,15 @@ class homebrew {
   $tapsdir       = "${dir}/Library/Taps"
   $boxenbrewsdir = "${tapsdir}/boxen-brews"
   $url           = 'https://github.com/mxcl/homebrew/tarball/122c0b2'
+  $cachedir      = "${boxen::config::cachedir}/homebrew"
 
-  file { $dir:
-    ensure => 'directory'
+  file {
+    $dir:
+      ensure => 'directory';
+    $cachedir:
+      ensure => 'directory',
+      owner  => $::luser,
+      group  => 'admin';
   }
 
   file { "${boxen::config::envdir}/ldflags.sh":

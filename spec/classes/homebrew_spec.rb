@@ -79,4 +79,12 @@ describe 'homebrew' do
       :require => "File[#{dir}/Library/Taps/boxen-brews]",
     })
   end
+
+  it do
+    should contain_file('/opt/boxen/cache/homebrew').with({
+      :ensure => 'directory',
+      :owner  => 'testuser',
+      :group  => 'admin'
+    })
+  end
 end

@@ -1,1 +1,1 @@
-mod 'boxen', '0.0.12', :github_tarball => 'boxen/puppet-boxen'
+mod 'boxen', '0.0.27', :github_tarball => 'boxen/puppet-boxen'

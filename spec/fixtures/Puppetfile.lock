@@ -1,8 +1,8 @@
 GITHUBTARBALL
   remote: boxen/puppet-boxen
   specs:
-    boxen (0.0.12)
+    boxen (0.0.27)
 
 DEPENDENCIES
-  boxen (= 0.0.12)
+  boxen (= 0.0.27)
 
