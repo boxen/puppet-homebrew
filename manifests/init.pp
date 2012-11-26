@@ -87,4 +87,8 @@ class homebrew {
   file { "${boxen::config::envdir}/homebrew.sh":
     content => template('homebrew/env.sh.erb')
   }
+
+  @exec { "update-homebrew":
+    command => "brew update"
+  }
 }
