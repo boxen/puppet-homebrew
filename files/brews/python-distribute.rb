@@ -1,3 +1,5 @@
+require 'formula'
+
 class PythonDistribute < Formula
   url 'http://pypi.python.org/packages/source/d/distribute/distribute-0.6.30.tar.gz'
   sha1 '40dfce237883d1c02817f726128f61614dc686ff'

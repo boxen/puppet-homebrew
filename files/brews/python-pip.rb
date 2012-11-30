@@ -1,3 +1,5 @@
+require 'formula'
+
 class PythonPip < Formula
   url 'http://pypi.python.org/packages/source/p/pip/pip-1.2.1.tar.gz'
   sha1 '35db84983ef3f66a8a161d320e61d192afc233d9'
