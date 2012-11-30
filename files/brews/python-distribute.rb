@@ -21,7 +21,7 @@ class PythonDistribute < Formula
     # forget to put #{script_folder} in PATH, then easy_install'ing
     # into /Library/Python/X.Y/site-packages with /usr/bin/easy_install.
     mkdir_p scripts_folder unless scripts_folder.exist?
-    setup_args = ["-s", "setup.py", "--no-user-cfg", "install", "--force", "--verbose", "--install-lib=#{site_packages_cellar}", "--install-scripts=#{bin}"
+    setup_args = ["-s", "setup.py", "--no-user-cfg", "install", "--force", "--verbose", "--install-lib=#{site_packages_cellar}", "--install-scripts=#{bin}"]
     system "python", *setup_args
   end
 end
