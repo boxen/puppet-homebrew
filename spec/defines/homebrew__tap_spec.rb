@@ -11,7 +11,7 @@ describe 'homebrew::tap' do
   let(:title) { 'test-tap' }
   let(:params) { {:source => 'puppet://modules/test/tap'} }
 
-  it { should include_class('homebrew') }
+  it { should include_class('homebrew::install') }
 
   it do
     should contain_file('/opt/boxen/homebrew/Library/Taps/test-tap').with({
