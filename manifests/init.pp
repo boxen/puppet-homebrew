@@ -5,7 +5,7 @@
 #   include homebrew
 class homebrew {
   require boxen::config
-  require homebrew::install
+  require homebrew::package
 
   $dir  = "${boxen::config::home}/homebrew"
 

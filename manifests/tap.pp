@@ -7,7 +7,7 @@
 #   }
 define homebrew::tap($source) {
   require boxen::config
-  require homebrew::install
+  require homebrew::package
 
   $dir     = "${boxen::config::home}/homebrew"
   $tapsdir = "${dir}/Library/Taps"

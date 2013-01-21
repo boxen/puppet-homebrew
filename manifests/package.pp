@@ -1,9 +1,9 @@
-# Private: Install homebrew for use with Boxen.
+# Private: Install the homebrew package for use with Boxen.
 #
 # Examples
 #
-#   include homebrew::install
-class homebrew::install {
+#   include homebrew::package
+class homebrew::package {
   require boxen::config
 
   $dir      = "${boxen::config::home}/homebrew"
