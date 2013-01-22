@@ -5,19 +5,17 @@
 #   include homebrew::package
 class homebrew::package {
   require boxen::config
+  require homebrew::config
 
-  $dir      = "${boxen::config::home}/homebrew"
-  $cmddir   = "${dir}/Library/Homebrew/cmd"
-  $tapsdir  = "${dir}/Library/Taps"
-  $url      = 'https://github.com/mxcl/homebrew/tarball/122c0b2'
-  $cachedir = "${boxen::config::cachedir}/homebrew"
+  $url           = 'https://github.com/mxcl/homebrew/tarball/122c0b2'
+  $monkeypatches = "${homebrew::config::installdir}/Library/Homebrew/boxen-monkeypatches.rb"
 
   file {
-    $dir:
+    $homebrew::config::installdir:
       ensure => 'directory';
-    $cachedir:
+    $homebrew::config::cachedir:
       ensure => 'directory',
-      owner  => $::luser,
+      owner  => $::boxen_user,
       group  => 'admin';
   }
 
@@ -32,41 +30,39 @@ class homebrew::package {
   }
 
   exec { 'install-homebrew':
-    command => "curl -L ${url} | tar xz --strip 1 -C ${dir}",
-    creates => "${dir}/bin/brew",
-    require => File[$dir]
+    command => "curl -L ${url} | tar xz --strip 1 -C ${homebrew::config::installdir}",
+    creates => "${homebrew::config::installdir}/bin/brew",
+    require => File[$homebrew::config::installdir]
   }
 
   exec { 'fix-homebrew-permissions':
-    command => "chown -R ${::luser}:staff ${dir}",
+    command => "chown -R ${::boxen_user}:staff ${homebrew::config::installdir}",
     user    => 'root',
-    unless  => "test -w ${dir}/.git/objects",
+    unless  => "test -w ${homebrew::config::installdir}/.git/objects",
     require => Exec['install-homebrew']
   }
-
-  $monkeypatches = "${dir}/Library/Homebrew/boxen-monkeypatches.rb"
 
   file { $monkeypatches:
     source  => 'puppet:///modules/homebrew/boxen-monkeypatches.rb',
     require => Exec['install-homebrew']
   }
 
-  file { "${cmddir}/boxen-latest.rb":
+  file { "${homebrew::config::cmddir}/boxen-latest.rb":
     source  => 'puppet:///modules/homebrew/boxen-latest.rb',
     require => File[$monkeypatches]
   }
 
-  file { "${cmddir}/boxen-install.rb":
+  file { "${homebrew::config::cmddir}/boxen-install.rb":
     source  => 'puppet:///modules/homebrew/boxen-install.rb',
     require => File[$monkeypatches]
   }
 
-  file { "${dir}/Library/Homebrew/cmd/boxen-upgrade.rb":
+  file { "${homebrew::config::installdir}/Library/Homebrew/cmd/boxen-upgrade.rb":
     source  => 'puppet:///modules/homebrew/boxen-upgrade.rb',
     require => File[$monkeypatches]
   }
 
-  file { $tapsdir:
+  file { $homebrew::config::tapsdir:
     ensure  => directory,
     require => Exec['install-homebrew']
   }
