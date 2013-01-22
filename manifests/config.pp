@@ -7,5 +7,5 @@ class homebrew::config {
   $cmddir     = "${installdir}/Library/Homebrew/cmd"
   $tapsdir    = "${installdir}/Library/Taps"
 
-  noop { [$cachedir, $cmddir, $installdir, $tapsdir]: }
+  anchor { [$cachedir, $cmddir, $installdir, $tapsdir]: }
 }

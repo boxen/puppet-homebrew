@@ -35,7 +35,7 @@ describe 'homebrew' do
 
   it do
     should contain_exec('fix-homebrew-permissions').with({
-      :command => "chown -R #{facts[:luser]}:staff #{dir}",
+      :command => "chown -R #{facts[:boxen_user]}:staff #{dir}",
       :user    => 'root',
       :unless  => "test -w #{dir}/.git/objects",
       :require => 'Exec[install-homebrew]',

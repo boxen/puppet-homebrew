@@ -9,9 +9,9 @@ describe 'homebrew::config' do
   end
 
   it do
-    should contain_noop('/opt/boxen/cache/homebrew')
-    should contain_noop('/opt/boxen/homebrew')
-    should contain_noop('/opt/boxen/homebrew/Library/Homebrew/cmd')
-    should contian_noop('/opt/boxen/homebrew/Library/Taps')
+    should contain_anchor('/opt/boxen/cache/homebrew')
+    should contain_anchor('/opt/boxen/homebrew')
+    should contain_anchor('/opt/boxen/homebrew/Library/Homebrew/cmd')
+    should contain_anchor('/opt/boxen/homebrew/Library/Taps')
   end
 end
