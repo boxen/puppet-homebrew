@@ -4,9 +4,10 @@ describe 'homebrew' do
   let(:facts) do
     {
       :boxen_home => '/opt/boxen',
-      :luser      => 'testuser',
+      :boxen_user => 'testuser',
     }
   end
+
   let(:dir) { '/opt/boxen/homebrew' }
   let(:cmddir) { "#{dir}/Library/Homebrew/cmd" }
   let(:url) { 'https://github.com/mxcl/homebrew/tarball/122c0b2' }
@@ -34,7 +35,7 @@ describe 'homebrew' do
 
   it do
     should contain_exec('fix-homebrew-permissions').with({
-      :command => "chown -R #{facts[:luser]}:staff #{dir}",
+      :command => "chown -R #{facts[:boxen_user]}:staff #{dir}",
       :user    => 'root',
       :unless  => "test -w #{dir}/.git/objects",
       :require => 'Exec[install-homebrew]',

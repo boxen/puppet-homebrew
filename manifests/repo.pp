@@ -8,6 +8,6 @@ class homebrew::repo {
 
   exec { 'brew update':
     require => Class['git'],
-    creates => "${homebrew::dir}/.git"
+    creates => "${homebrew::config::installdir}/.git"
   }
 }
