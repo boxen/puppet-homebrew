@@ -1,8 +1,14 @@
 GITHUBTARBALL
   remote: boxen/puppet-boxen
   specs:
-    boxen (0.0.27)
+    boxen (0.1.8)
+
+GITHUBTARBALL
+  remote: puppetlabs/puppetlabs-stdlib
+  specs:
+    stdlib (3.0.0)
 
 DEPENDENCIES
-  boxen (= 0.0.27)
+  boxen (= 0.1.8)
+  stdlib (= 3.0.0)
 

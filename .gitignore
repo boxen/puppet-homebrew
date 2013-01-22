@@ -4,3 +4,4 @@
 /spec/fixtures/.tmp/
 /spec/fixtures/vendor/
 /spec/fixtures/modules/boxen/
+/spec/fixtures/modules/stdlib/
