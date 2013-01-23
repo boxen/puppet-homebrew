@@ -19,3 +19,5 @@ define homebrew::tap($source) {
     recurse => true,
   }
 }
+
+Homebrew::Tap <| |> -> Package <| |>
