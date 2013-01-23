@@ -12,6 +12,23 @@ that allows other modules to drop custom brews in.
 
 ```puppet
 include homebrew
+
+# Declaring a custom package formula, and installing package
+
+class clojure {
+  homebrew::formula {
+    'clojure': ; #source defaults to puppet:///modules/clojure/brews/clojure.rb
+    'leinengen':
+      source => 'puppet:///modules/clojure/brews/leinengen.rb' ;
+  }
+
+  package {
+    'boxen/brews/clojure':
+      ensure => 'aversion' ;
+    'boxen/brews/leinengen':
+      ensure => 'anotherversion' ;
+  }
+}
 ```
 
 ## Developing

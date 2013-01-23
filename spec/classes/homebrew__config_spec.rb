@@ -13,5 +13,6 @@ describe 'homebrew::config' do
     should contain_anchor('/opt/boxen/homebrew')
     should contain_anchor('/opt/boxen/homebrew/Library/Homebrew/cmd')
     should contain_anchor('/opt/boxen/homebrew/Library/Taps')
+    should contain_anchor('/opt/boxen/homebrew/Library/Taps/boxen-brews')
   end
 end

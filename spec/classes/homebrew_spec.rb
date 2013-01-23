@@ -63,19 +63,16 @@ describe 'homebrew' do
       :ensure  => 'directory',
       :require => 'Exec[install-homebrew]',
     })
-  end
 
-  it do
-    should contain_homebrew__tap('boxen-brews').with({
-      :source => 'puppet:///modules/homebrew/brews',
+    should contain_file("#{dir}/Library/Taps/boxen-brews").with({
+      :ensure  => 'directory',
+      :require => 'Exec[install-homebrew]',
     })
   end
 
+
   it do
-    should contain_package('boxen/brews/apple-gcc42').with({
-      :ensure  => '4.2.1-5666.3-boxen1',
-      :require => "Homebrew::Tap[boxen-brews]",
-    })
+    should_not contain_package('boxen/brews/apple-gcc42')
   end
 
   it do
