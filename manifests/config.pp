@@ -1,3 +1,9 @@
+# Public: Variables for working with Homebrew
+#
+# Examples
+#
+#   require homebrew::config
+
 class homebrew::config {
   require boxen::config
 
@@ -7,5 +13,7 @@ class homebrew::config {
   $cmddir     = "${installdir}/Library/Homebrew/cmd"
   $tapsdir    = "${installdir}/Library/Taps"
 
-  anchor { [$cachedir, $cmddir, $installdir, $tapsdir]: }
+  $brewsdir   = "${tapsdir}/boxen-brews"
+
+  anchor { [$cachedir, $cmddir, $installdir, $tapsdir, $brewsdir]: }
 }
