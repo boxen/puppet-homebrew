@@ -4,7 +4,7 @@ define homebrew::formula($source = undef) {
   require homebrew
 
   $formula_source = $source ? {
-    undef   => "puppet:///modules/${caller_module_name}/formulas/${name}.rb",
+    undef   => "puppet:///modules/${caller_module_name}/brews/${name}.rb",
     default => $source
   }
 
