@@ -27,9 +27,8 @@ describe 'homebrew::formula' do
 
   context 'without source provided' do
     it do
-      pending "this doesn't work if shit isn't in a module on both ends, lame"
       should contain_file('/opt/boxen/homebrew/Library/Taps/boxen-brews/clojure.rb').with({
-        :source => 'puppet:///modules/clojure/brews/clojure.rb'
+        :source => 'puppet:///modules/main/brews/clojure.rb'
       })
     end
   end
