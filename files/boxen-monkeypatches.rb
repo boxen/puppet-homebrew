@@ -19,7 +19,7 @@ class FormulaInstaller
     "http://s3.amazonaws.com/#{bucket}/homebrew/#{os}/#{file}"
   end
 
-  def install_bottle
+  def install_bottle? formula
     url = URI.parse boxen_snapshot_url
 
     Net::HTTP.start url.host do |http|
@@ -33,6 +33,7 @@ class FormulaInstaller
   end
 
   def pour
+    puts "Installing #{f.name} from S3..."
     Dir.chdir HOMEBREW_CELLAR do
       system "curl -s #{boxen_snapshot_url} | tar -xjf -"
     end
