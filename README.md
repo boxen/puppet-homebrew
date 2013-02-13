@@ -1,4 +1,4 @@
-# Template Puppet Module for Boxen
+# Homebrew Puppet Module for Boxen
 
 Install [Homebrew](http://mxcl.github.com/homebrew), a package manager
 for Mac OS X.
