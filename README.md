@@ -1,12 +1,7 @@
-# Homebrew Puppet Module for Boxen
+# Template Puppet Module for Boxen
 
-Requires the following boxen modules:
-
-* `boxen`
-
-Really, just serves to put our monkey patches in place.
-Also creates a taps dir for Boxen at `homebrew::boxenbrewsdir`
-that allows other modules to drop custom brews in.
+Install [Homebrew](http://mxcl.github.com/homebrew), a package manager
+for Mac OS X.
 
 ## Usage
 
@@ -17,7 +12,7 @@ include homebrew
 
 class clojure {
   homebrew::formula {
-    'clojure': ; #source defaults to puppet:///modules/clojure/brews/clojure.rb
+    'clojure': ; # source defaults to puppet:///modules/clojure/brews/clojure.rb
     'leinengen':
       source => 'puppet:///modules/clojure/brews/leinengen.rb' ;
   }
@@ -31,8 +26,11 @@ class clojure {
 }
 ```
 
-## Developing
+## Required Puppet Modules
 
-Write code.
+* `boxen`
 
-Run `script/cibuild`.
+## Development
+
+Write code. Run `script/cibuild` to test it. Check the `script`
+directory for other useful tools.
