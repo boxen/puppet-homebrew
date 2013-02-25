@@ -12,11 +12,12 @@ require "uri"
 
 class FormulaInstaller
   def boxen_snapshot_url
-    os   = MACOS_VERSION
-    file = "#{f.name}-#{f.version}.tar.bz2"
+    os     = MACOS_VERSION
+    file   = "#{f.name}-#{f.version}.tar.bz2"
+    host   = ENV['BOXEN_S3_HOST']   || 's3.amazonaws.com'
     bucket = ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
 
-    "http://s3.amazonaws.com/#{bucket}/homebrew/#{os}/#{file}"
+    "http://#{host}/#{bucket}/homebrew/#{os}/#{file}"
   end
 
   def install_bottle? formula
