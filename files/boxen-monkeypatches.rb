@@ -20,7 +20,7 @@ class FormulaInstaller
     "http://#{host}/#{bucket}/homebrew/#{os}/#{file}"
   end
 
-  def install_bottle? formula
+  def install_bottle? formula, warn = false
     url = URI.parse boxen_snapshot_url
 
     Net::HTTP.start url.host do |http|
