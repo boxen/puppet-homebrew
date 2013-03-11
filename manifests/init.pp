@@ -15,6 +15,8 @@ class homebrew {
   file {
     $homebrew::config::installdir:
       ensure => 'directory';
+    $homebrew::config::libdir:
+      ensure => 'directory';
     $homebrew::config::cachedir:
       ensure => 'directory',
       owner  => $::boxen_user,
