@@ -1,9 +1,14 @@
+# Public: Homebrew forumla
+#
+# Examples
+#
+#   require homebrew::forumla
 define homebrew::formula($source = undef) {
   require boxen::config
   require homebrew::config
   require homebrew
 
-  $caller_module_name_that_works = inline_template("<%= scope.parent.to_hash['name'].split('::').first %>")
+  $caller_module_name_that_works = inline_template('<%= scope.parent.to_hash["name"].split("::").first %>')
 
   $formula_source = $source ? {
     undef   => "puppet:///modules/${caller_module_name_that_works}/brews/${name}.rb",
