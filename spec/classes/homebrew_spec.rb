@@ -28,6 +28,7 @@ describe "homebrew" do
         with_source("puppet:///modules/homebrew/boxen-#{cmd}.rb")
     end
 
+    should contain_file("#{dir}/lib").with_ensure("directory")
     should contain_file(cmddir).with_ensure("directory")
     should contain_file("#{dir}/Library/Taps").with_ensure("directory")
     should contain_file("/test/boxen/cache/homebrew").with_ensure("directory")

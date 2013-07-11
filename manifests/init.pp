@@ -25,7 +25,7 @@ class homebrew(
   }
 
   file {
-    [$cachedir, $tapsdir, $cmddir]:
+    [$cachedir, $tapsdir, $cmddir, $libdir]:
       ensure => 'directory' ;
 
     # Environment Variables
