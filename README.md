@@ -13,6 +13,8 @@ include homebrew
 # Declaring a custom package formula, and installing package
 
 class clojure {
+  homebrew::tap { 'homebrew/versions': }
+
   homebrew::formula {
     'clojure': ; # source defaults to puppet:///modules/clojure/brews/clojure.rb
     'leinengen':
