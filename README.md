@@ -30,7 +30,9 @@ class clojure {
 
 ## Required Puppet Modules
 
-* `boxen`
+* `boxen`, >= 1.2
+* `repository`, >= 2.0
+* `stdlib`, >= 4.0
 
 ## Development
 

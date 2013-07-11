@@ -5,7 +5,7 @@
 #   require homebrew::config
 
 class homebrew::config {
-  require boxen::config
+  include boxen::config
 
   $cachedir   = "${boxen::config::cachedir}/homebrew"
   $installdir = "${boxen::config::home}/homebrew"
@@ -15,6 +15,4 @@ class homebrew::config {
   $tapsdir    = "${installdir}/Library/Taps"
 
   $brewsdir   = "${tapsdir}/boxen-brews"
-
-  anchor { [$cachedir, $cmddir, $installdir, $tapsdir, $brewsdir]: }
 }

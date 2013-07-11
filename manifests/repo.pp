@@ -4,10 +4,10 @@
 #
 #   include homebrew::repo
 class homebrew::repo {
-  require homebrew
+  include homebrew
 
   exec { 'brew update':
-    require => Class['git'],
-    creates => "${homebrew::config::installdir}/.git"
+    refreshonly => true,
+    require     => Class['homebrew']
   }
 }

@@ -1,18 +1,10 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe 'homebrew::repo' do
-  let(:facts) do
-    {
-      :boxen_home => '/opt/boxen',
-      :luser      => 'testuser',
-    }
-  end
-
-  it { should include_class('homebrew') }
+describe "homebrew::repo" do
+  let(:facts) { default_test_facts }
 
   it do
-    should contain_exec('brew update').with({
-      :creates => '/opt/boxen/homebrew/.git',
-    })
+    should include_class("homebrew")
+    should contain_exec("brew update").with_refreshonly(true)
   end
 end

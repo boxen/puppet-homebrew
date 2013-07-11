@@ -1,34 +1,41 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe 'homebrew::formula' do
-  let(:facts) do
-    {
-      :boxen_home => '/opt/boxen',
-      :boxen_user => 'testuser',
-    }
-  end
+describe "homebrew::formula" do
+  let(:facts) { default_test_facts }
+  let(:title) { "clojure" }
 
-  let(:title) { 'clojure' }
+  let(:tapdir) { "#{facts[:boxen_home]}/homebrew/Library/Taps/boxen-brews" }
 
-  context 'with source provided' do
+  context "with source provided" do
     let(:params) do
       {
-        :source => 'puppet:///modules/whatever/my_special_formula.rb'
+        :source => "puppet:///modules/whatever/my_special_formula.rb"
       }
     end
 
     it do
-      should contain_file('/opt/boxen/homebrew/Library/Taps/boxen-brews/clojure.rb').with({
-        :source => 'puppet:///modules/whatever/my_special_formula.rb'
+      should contain_file(tapdir).with({
+        :ensure => "directory",
+        :owner  => "testuser",
+        :group  => "staff"
+      })
+
+      should contain_file("#{tapdir}/clojure.rb").with({
+        :source => "puppet:///modules/whatever/my_special_formula.rb"
       })
     end
-
   end
 
-  context 'without source provided' do
+  context "without source provided" do
     it do
-      should contain_file('/opt/boxen/homebrew/Library/Taps/boxen-brews/clojure.rb').with({
-        :source => 'puppet:///modules/main/brews/clojure.rb'
+      should contain_file(tapdir).with({
+        :ensure => "directory",
+        :owner  => "testuser",
+        :group  => "staff"
+      })
+
+      should contain_file("#{tapdir}/clojure.rb").with({
+        :source => "puppet:///modules/main/brews/clojure.rb"
       })
     end
   end
