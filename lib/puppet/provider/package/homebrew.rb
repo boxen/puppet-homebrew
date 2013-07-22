@@ -16,7 +16,11 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
   # A list of `ensure` values that aren't explicit versions.
 
   def self.home
-    "#{Facter[:boxen_home].value}/homebrew"
+    if boxen_home = Facter.value(:boxen_home)
+      "#{boxen_home}/homebrew"
+    else
+      "/usr/local/homebrew"
+    end
   end
 
   confine  :operatingsystem => :darwin
