@@ -1,5 +1,3 @@
-# The `boxen_user` fact MUST be available
-
 require "pathname"
 require "puppet/provider/package"
 require "puppet/util/execution"
@@ -163,18 +161,22 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
     end
   end
 
+  def default_user
+    Facter.value(:boxen_user) || Facter.value(:id) || "root"
+  end
+
   def command_opts
     @command_opts ||= {
       :combine            => true,
       :custom_environment => {
-        "HOME"     => "/#{homedir_prefix}/#{Facter[:boxen_user].value}",
+        "HOME"     => "/#{homedir_prefix}/#{default_user}",
         "PATH"     => "#{self.class.home}/bin:/usr/bin:/usr/sbin:/bin:/sbin",
         "CFLAGS"   => "-O2",
         "CPPFLAGS" => "-O2",
         "CXXFLAGS" => "-O2"
       },
       :failonfail         => true,
-      :uid                => Facter[:boxen_user].value
+      :uid                => default_user
     }
   end
 end
