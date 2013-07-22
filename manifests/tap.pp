@@ -8,23 +8,5 @@ define homebrew::tap(
 ) {
   require homebrew
 
-  $source_with_hyphen = regsubst($source, '\/', '-')
-
-  case $ensure {
-    present: {
-      exec { "brew tap ${source}":
-        creates => "${homebrew::tapsdir}/${source_with_hyphen}"
-      }
-    }
-
-    absent: {
-      exec { "rm -rf ${homebrew::tapsdir}/${source_with_hyphen}":
-        onlyif => "test -d ${homebrew::tapsdir}/${source_with_hyphen}"
-      }
-    }
-
-    default: {
-      fail('Ensure must be present or absent!')
-    }
-  }
+  ensure_resource('homebrew_tap', $source, { 'ensure' => $ensure })
 }
