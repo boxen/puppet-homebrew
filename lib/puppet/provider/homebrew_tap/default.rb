@@ -75,6 +75,15 @@ Puppet::Type.type(:homebrew_tap).provide :default do
     Facter.value(:boxen_user) || Facter.value(:id) || "root"
   end
 
+  def homedir_prefix
+    case Facter[:osfamily].value
+    when "Darwin" then "Users"
+    when "Linux" then "home"
+    else
+      raise "unsupported"
+    end
+  end
+
   def command_opts
     @command_opts ||= {
       :combine            => true,
