@@ -9,7 +9,7 @@ describe "homebrew::tap" do
 
   context "ensure => present" do
     it do
-      should contain_exec("brew tap foo/bar").with_creates(dir)
+      should contain_homebrew__tap("foo/bar").with_ensure(:present)
     end
   end
 
@@ -21,21 +21,7 @@ describe "homebrew::tap" do
     end
 
     it do
-      should contain_exec("rm -rf #{dir}").with_onlyif("test -d #{dir}")
-    end
-  end
-
-  context "ensure => whatever" do
-    let(:params) do
-      {
-        :ensure => "whatever"
-      }
-    end
-
-    it do
-      expect {
-        should contain_exec("brew tap foo/bar")
-      }.to raise_error(Puppet::Error, /Ensure must be present or absent/)
+      should contain_homebrew__tap("foo/bar").with_ensure(:absent)
     end
   end
 end

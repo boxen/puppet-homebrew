@@ -1,3 +1,3 @@
-mod "boxen",      "2.1.0", :github_tarball => "boxen/puppet-boxen"
+mod "boxen",      "3.3.3", :github_tarball => "boxen/puppet-boxen"
 mod "repository", "2.2.0", :github_tarball => "boxen/puppet-repository"
 mod "stdlib",     "4.0.0", :github_tarball => "puppetlabs/puppetlabs-stdlib"
