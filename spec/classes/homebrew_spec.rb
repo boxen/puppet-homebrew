@@ -12,13 +12,12 @@ describe "homebrew" do
       :user   => "testuser"
     })
 
-    ["ldflags.sh", "cflags.sh"].each do |f|
+    ["ldflags.sh", "cflags.sh", "homebrew.sh"].each do |f|
       should contain_file("/test/boxen/env.d/#{f}").
-        with_source("puppet:///modules/homebrew/#{f}")
+        with_ensure(:absent)
     end
 
-    should contain_file("/test/boxen/env.d/homebrew.sh").
-      with_content("export HOMEBREW_CACHE=$BOXEN_HOME/cache/homebrew\n")
+    should contain_boxen__env_script("homebrew")
 
     should contain_file("#{dir}/Library/Homebrew/boxen-monkeypatches.rb").
       with_source("puppet:///modules/homebrew/boxen-monkeypatches.rb")

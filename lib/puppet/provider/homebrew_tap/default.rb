@@ -88,11 +88,12 @@ Puppet::Type.type(:homebrew_tap).provide :default do
     @command_opts ||= {
       :combine            => true,
       :custom_environment => {
-        "HOME"     => "/#{homedir_prefix}/#{default_user}",
-        "PATH"     => "#{self.class.home}/bin:/usr/bin:/usr/sbin:/bin:/sbin",
-        "CFLAGS"   => "-O2",
-        "CPPFLAGS" => "-O2",
-        "CXXFLAGS" => "-O2"
+        "HOME"            => "/#{homedir_prefix}/#{default_user}",
+        "PATH"            => "#{self.class.home}/bin:/usr/bin:/usr/sbin:/bin:/sbin",
+        "CFLAGS"          => "-O2",
+        "CPPFLAGS"        => "-O2",
+        "CXXFLAGS"        => "-O2",
+        "HOMEBREW_ROOT"   => "#{self.class.home}",
       },
       :failonfail         => true,
       :uid                => default_user
