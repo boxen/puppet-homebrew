@@ -165,15 +165,25 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
     Facter.value(:boxen_user) || Facter.value(:id) || "root"
   end
 
+  def s3_host
+    Facter.value(:boxen_s3_host) || 's3.amazonaws.com'
+  end
+
+  def s3_bucket
+    Facter.value(:boxen_s3_bucket) || 'boxen-downloads'
+  end
+
   def command_opts
     @command_opts ||= {
       :combine            => true,
       :custom_environment => {
-        "HOME"     => "/#{homedir_prefix}/#{default_user}",
-        "PATH"     => "#{self.class.home}/bin:/usr/bin:/usr/sbin:/bin:/sbin",
-        "CFLAGS"   => "-O2",
-        "CPPFLAGS" => "-O2",
-        "CXXFLAGS" => "-O2"
+        "HOME"            => "/#{homedir_prefix}/#{default_user}",
+        "PATH"            => "#{self.class.home}/bin:/usr/bin:/usr/sbin:/bin:/sbin",
+        "CFLAGS"          => "-O2",
+        "CPPFLAGS"        => "-O2",
+        "CXXFLAGS"        => "-O2",
+        "BOXEN_S3_HOST"   => "#{s3_host}",
+        "BOXEN_S3_BUCKET" => "#{s3_bucket}"
       },
       :failonfail         => true,
       :uid                => default_user
