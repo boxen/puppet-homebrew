@@ -23,7 +23,7 @@ class FormulaInstaller
   def install_bottle? formula, warn = false
     url = URI.parse boxen_snapshot_url
 
-    Net::HTTP.start url.host do |http|
+    network.start url.host do |http|
       http.open_timeout = 1
       http.read_timeout = 1
 
@@ -31,6 +31,15 @@ class FormulaInstaller
     end
 
     false
+  end
+
+  def network
+    proxy = ENV['https_proxy'] || ENV['http_proxy']
+    if proxy
+      Net::HTTP::Proxy(URI.parse(proxy).host, URI.parse(proxy).port)
+    else
+      Net::HTTP
+    end
   end
 
   def pour
