@@ -20,7 +20,7 @@ class FormulaInstaller
     "http://#{host}/#{bucket}/homebrew/#{os}/#{file}"
   end
 
-  def install_bottle? formula, warn = false
+  def have_boxen_bottle?
     url = URI.parse boxen_snapshot_url
 
     Net::HTTP.start url.host do |http|
@@ -31,6 +31,18 @@ class FormulaInstaller
     end
 
     false
+  end
+
+  if defined? install_bottle?
+    def install_bottle? *args
+      have_boxen_bottle?
+    end
+  end
+
+  alias orig_pour_bottle? pour_bottle?
+  def pour_bottle? install_bottle_options={:warn=>false}
+    return false unless have_boxen_bottle?
+    orig_pour_bottle? install_bottle_options
   end
 
   def pour
