@@ -33,6 +33,12 @@ class FormulaInstaller
     false
   end
 
+  if defined? install_bottle?
+    def install_bottle? *args
+      have_boxen_bottle?
+    end
+  end
+
   alias orig_pour_bottle? pour_bottle?
   def pour_bottle? install_bottle_options={:warn=>false}
     return false unless have_boxen_bottle?
