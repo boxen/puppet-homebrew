@@ -34,19 +34,22 @@ class FormulaInstaller
   end
 
   if defined? install_bottle?
+    alias orig_install_bottle install_bottle?
     def install_bottle? *args
-      have_boxen_bottle?
+      have_boxen_bottle? || orig_install_bottle(*args)
     end
   end
 
   alias orig_pour_bottle? pour_bottle?
-  def pour_bottle? install_bottle_options={:warn=>false}
-    return false unless have_boxen_bottle?
-    orig_pour_bottle? install_bottle_options
+  def pour_bottle? *args
+    have_boxen_bottle? || orig_pour_bottle?(*args)
   end
 
-  def pour
-    puts "Installing #{f.name} from S3..."
+  alias orig_pour pour
+  def pour *args
+    return orig_pour(*args) unless have_boxen_bottle?
+
+    ohai "Installing #{f.name} from S3..."
     Dir.chdir HOMEBREW_CELLAR do
       system "curl -s #{boxen_snapshot_url} | tar -xjf -"
     end
