@@ -27,7 +27,21 @@ class clojure {
     'boxen/brews/leinengen':
       ensure => 'anotherversion' ;
   }
+  
 }
+
+# Installing homebrew formulas, and passing in arbitrary flags, like:
+# brew install php54 --with-fpm --without-apache
+
+  package { 'php54':
+    ensure => present,
+    install_options => [
+      '--with-fpm',
+      '--without-apache'
+    ],
+    require => Package['zlib']
+  }
+
 ```
 
 ## Required Puppet Modules
