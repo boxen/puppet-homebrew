@@ -17,11 +17,7 @@ class FormulaInstaller
     host   = ENV['BOXEN_S3_HOST']   || 's3.amazonaws.com'
     bucket = ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
 
-    "http://#{host}/#{boxen_s3_bucket}/homebrew/#{os}/#{file}"
-  end
-
-  def boxen_s3_bucket
-    ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
+    "http://#{host}/#{bucket}/homebrew/#{os}/#{file}"
   end
 
   def have_boxen_bottle?
@@ -53,7 +49,9 @@ class FormulaInstaller
   def pour *args
     return orig_pour(*args) unless have_boxen_bottle?
 
-    ohai "Installing #{f.name} from #{boxen_s3_bucket} S3 bucket..."
+    bucket = ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
+
+    ohai "Installing #{f.name} from #{bucket} S3 bucket..."
     Dir.chdir HOMEBREW_CELLAR do
       system "curl -s #{boxen_snapshot_url} | tar -xjf -"
     end
