@@ -55,6 +55,7 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
   def install
     version = unversioned? ? latest : @resource[:ensure]
 
+    ensure_working_brew
     update_formulas if !version_defined?(version) || version == 'latest'
 
     if self.class.available? @resource[:name], version
@@ -78,6 +79,16 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
         execute [ "brew", "boxen-install", @resource[:name] ], command_opts
       end
 
+    end
+  end
+
+  def ensure_working_brew
+    unless self.class.const_defined?(:CHECKED_BREW)
+      notice "Checking homebrew sanity"
+      execute [ "brew", "tap", "--repair"], command_opts
+      output = execute [ "brew", "readall" ], command_opts.merge(:failonfail => false)
+      update_formulas unless output.exitstatus == 0
+      self.class.const_set(:CHECKED_BREW, true)
     end
   end
 
