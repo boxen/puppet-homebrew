@@ -20,7 +20,7 @@ class FormulaInstaller
     "http://#{host}/#{bucket}/homebrew/#{os}/#{file}"
   end
 
-  def install_bottle? formula, warn = false
+  def have_boxen_bottle?
     url = URI.parse boxen_snapshot_url
 
     network.start url.host do |http|
@@ -42,8 +42,25 @@ class FormulaInstaller
     end
   end
 
-  def pour
-    puts "Installing #{f.name} from S3..."
+  if defined? install_bottle?
+    alias orig_install_bottle install_bottle?
+    def install_bottle? *args
+      have_boxen_bottle? || orig_install_bottle(*args)
+    end
+  end
+
+  alias orig_pour_bottle? pour_bottle?
+  def pour_bottle? *args
+    have_boxen_bottle? || orig_pour_bottle?(*args)
+  end
+
+  alias orig_pour pour
+  def pour *args
+    return orig_pour(*args) unless have_boxen_bottle?
+
+    bucket = ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
+
+    ohai "Installing #{f.name} from #{bucket} S3 bucket..."
     Dir.chdir HOMEBREW_CELLAR do
       system "curl -s #{boxen_snapshot_url} | tar -xjf -"
     end
