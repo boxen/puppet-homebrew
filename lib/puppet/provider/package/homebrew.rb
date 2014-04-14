@@ -86,7 +86,7 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
     unless self.class.const_defined?(:CHECKED_BREW)
       notice "Checking homebrew sanity"
       execute [ "brew", "tap", "--repair"], command_opts
-      output = execute [ "brew", "readall" ], command_opts.merge(:failonfail => false)
+      output = execute [ "brew", "readall", "boxen/brews" ], command_opts.merge(:failonfail => false)
       update_formulas unless output.exitstatus == 0
       self.class.const_set(:CHECKED_BREW, true)
     end
