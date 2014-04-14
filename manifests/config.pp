@@ -15,4 +15,6 @@ class homebrew::config {
   $tapsdir    = "${installdir}/Library/Taps"
 
   $brewsdir   = "${tapsdir}/boxen-brews"
+
+  $min_revision = 'e567009'
 }

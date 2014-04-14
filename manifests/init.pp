@@ -5,14 +5,15 @@
 #   include homebrew
 
 class homebrew(
-  $cachedir    = $homebrew::config::cachedir,
-  $installdir  = $homebrew::config::installdir,
-  $libdir      = $homebrew::config::libdir,
-  $cmddir      = $homebrew::config::cmddir,
-  $tapsdir     = $homebrew::config::tapsdir,
-  $brewsdir    = $homebrew::config::brewsdir,
-  $set_cflags  = true,
-  $set_ldflags = true,
+  $cachedir     = $homebrew::config::cachedir,
+  $installdir   = $homebrew::config::installdir,
+  $libdir       = $homebrew::config::libdir,
+  $cmddir       = $homebrew::config::cmddir,
+  $tapsdir      = $homebrew::config::tapsdir,
+  $brewsdir     = $homebrew::config::brewsdir,
+  $min_revision = $homebrew::config::min_revision,
+  $set_cflags   = true,
+  $set_ldflags  = true,
 ) inherits homebrew::config {
   include boxen::config
   include homebrew::repo
