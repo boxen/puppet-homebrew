@@ -6,8 +6,10 @@
 class homebrew::repo {
   include homebrew
 
-  exec { 'brew update':
-    refreshonly => true,
-    require     => Class['homebrew']
+  if $::osfamily == 'Darwin' {
+    exec { 'brew update':
+      refreshonly => true,
+      require     => Class['homebrew']
+    }
   }
 }
