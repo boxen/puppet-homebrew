@@ -11,7 +11,6 @@ Puppet::Type.newtype(:homebrew_repo) do
 
   newproperty(:min_revision) do
     newvalue(/.+/) do
-      puts "XXX ensuring min_revision is #{@resource[:min_revision]}"
       provider.brew_update
     end
     
