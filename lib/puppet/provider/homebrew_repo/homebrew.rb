@@ -18,10 +18,13 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
   end
   
   def check_min_revision
+    rev = min_revision
+    return current_revision if rev == :unavailable
+
     result = Dir.chdir @resource[:path] do
       execute([
         "/bin/sh", "-c",
-        "#{command(:git)} rev-list #{current_revision} | fgrep #{min_revision}"
+        "#{command(:git)} rev-list #{current_revision} | grep '^#{rev}'"
       ], command_opts.merge(:failonfail => false))
     end
     result.exitstatus == 0 ? @resource[:min_revision] : current_revision
@@ -49,9 +52,10 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
   
   def min_revision
     @min_revision ||= Dir.chdir @resource[:path] do
-      execute([
+      result = execute([
         command(:git), "rev-list", "--max-count=1", @resource[:min_revision]
-      ], command_opts).chomp
+      ], command_opts.merge(:failonfail => false))
+      result.exitstatus == 0 ? result.chomp : :unavailable
     end
   end
 
