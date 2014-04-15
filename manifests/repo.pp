@@ -3,13 +3,15 @@
 # Examples
 #
 #   include homebrew::repo
-class homebrew::repo {
-  include homebrew
+class homebrew::repo (
+  $installdir   = $homebrew::config::installdir,
+  $min_revision = $homebrew::config::min_revision,
+) {
+  require homebrew
 
   if $::osfamily == 'Darwin' {
-    exec { 'brew update':
-      refreshonly => true,
-      require     => Class['homebrew']
-    }
+    homebrew_repo { $installdir:
+      min_revision => $min_revision,
+    } -> Package <| |>
   }
 }
