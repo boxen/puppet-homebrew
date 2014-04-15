@@ -13,7 +13,7 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
     if boxen_home = Facter.value(:boxen_home)
       "#{boxen_home}/homebrew"
     else
-      "/usr/local/homebrew"
+      raise "The puppet-homebrew module depends on Boxen"
     end
   end
   
