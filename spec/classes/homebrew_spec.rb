@@ -19,8 +19,8 @@ describe "homebrew" do
 
     should contain_boxen__env_script("homebrew")
 
-    should contain_file("#{dir}/Library/Homebrew/boxen-monkeypatches.rb").
-      with_source("puppet:///modules/homebrew/boxen-monkeypatches.rb")
+    should contain_file("#{dir}/Library/Homebrew/boxen-bottle-hooks.rb").
+      with_source("puppet:///modules/homebrew/boxen-bottle-hooks.rb")
 
     ["latest", "install", "upgrade"].each do |cmd|
       should contain_file("#{cmddir}/boxen-#{cmd}.rb").
