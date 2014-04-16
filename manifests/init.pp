@@ -19,7 +19,7 @@ class homebrew(
   include homebrew::repo
 
   repository { $installdir:
-    source => 'mxcl/homebrew',
+    source => 'Homebrew/homebrew',
     user   => $::boxen_user
   }
 
