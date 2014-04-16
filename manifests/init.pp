@@ -26,13 +26,19 @@ class homebrew(
     require => Repository[$installdir]
   }
 
+  # Remove the old monkey patches, from pre #39
+  file {
+    "${installdir}/Library/Homebrew/boxen-monkeypatches.rb":
+      ensure => 'absent',
+  }
+
   file {
     [$cachedir, $tapsdir, $cmddir, $libdir]:
       ensure => 'directory' ;
 
-    # shim for monkeypatches
-    "${installdir}/Library/Homebrew/boxen-monkeypatches.rb":
-      source  => 'puppet:///modules/homebrew/boxen-monkeypatches.rb' ;
+    # shim for bottle hooks
+    "${installdir}/Library/Homebrew/boxen-bottle-hooks.rb":
+      source  => 'puppet:///modules/homebrew/boxen-bottle-hooks.rb' ;
     "${cmddir}/boxen-latest.rb":
       source  => 'puppet:///modules/homebrew/boxen-latest.rb' ;
     "${cmddir}/boxen-install.rb":
