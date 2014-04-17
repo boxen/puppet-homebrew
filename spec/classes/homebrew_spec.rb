@@ -8,7 +8,7 @@ describe "homebrew" do
 
   it do
     should contain_repository(dir).with({
-      :source => "mxcl/homebrew",
+      :source => "Homebrew/homebrew",
       :user   => "testuser"
     })
 
