@@ -10,13 +10,26 @@ define homebrew::formula($source = undef) {
     default => $source
   }
 
-  ensure_resource('file', "${homebrew::tapsdir}/boxen-brews", {
+  ensure_resource('file', "${homebrew::tapsdir}/boxen", {
     'ensure' => 'directory',
     'owner'  => $::boxen_user,
     'group'  => 'staff'
   })
 
-  file { "${homebrew::config::tapsdir}/boxen-brews/${name}.rb":
+  ensure_resource('file', "${homebrew::tapsdir}/boxen/homebrew-brews", {
+    'ensure' => 'directory',
+    'owner'  => $::boxen_user,
+    'group'  => 'staff'
+  })
+
+  ensure_resource('file', "${homebrew::tapsdir}/boxen/homebrew-brews/.git", {
+    'ensure' => 'directory',
+    'owner'  => $::boxen_user,
+    'group'  => 'staff'
+  })
+
+  file { "${homebrew::config::tapsdir}/boxen/homebrew-brews/${name}.rb":
     source  => $formula_source
   }
+
 }
