@@ -21,6 +21,6 @@ define homebrew::formula($source = undef) {
 
   file { "${boxen_tapdir}/${name}.rb":
     source  => $formula_source,
-    require => File[$boxen_tapdir]
+    require => File[$boxen_tapdir_root, $boxen_tapdir]
   }
 }
