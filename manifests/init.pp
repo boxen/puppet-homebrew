@@ -36,19 +36,33 @@ class homebrew(
   file {
     [$cachedir, $tapsdir, $cmddir, $libdir]:
       ensure => 'directory' ;
-
-    # shim for bottle hooks
-    "${installdir}/Library/Homebrew/boxen-bottle-hooks.rb":
-      source  => 'puppet:///modules/homebrew/boxen-bottle-hooks.rb' ;
-    "${cmddir}/boxen-latest.rb":
-      source  => 'puppet:///modules/homebrew/boxen-latest.rb' ;
-    "${cmddir}/boxen-install.rb":
-      source  => 'puppet:///modules/homebrew/boxen-install.rb' ;
-    "${installdir}/Library/Homebrew/cmd/boxen-upgrade.rb":
-      source  => 'puppet:///modules/homebrew/boxen-upgrade.rb' ;
   }
 
-  ->
+  if $::use_default_homebrew {
+    exec { 'chmod_installdir':
+      command => "mkdir -p /usr/local; /bin/chmod g+rwx $installdir; /usr/bin/chgrp admin $installdir",
+      unless => "test `stat -f %g $installdir` -eq `grep ^admin: /etc/group | cut -d: -f3`",
+      user => root
+    }
+
+    file {
+      "${cmddir}/latest.rb":
+        source  => 'puppet:///modules/homebrew/latest.rb' ;
+    }
+  } else {
+    file {
+      # shim for bottle hooks
+      "${installdir}/Library/Homebrew/boxen-bottle-hooks.rb":
+        source  => 'puppet:///modules/homebrew/boxen-bottle-hooks.rb' ;
+      "${cmddir}/boxen-latest.rb":
+        source  => 'puppet:///modules/homebrew/boxen-latest.rb' ;
+      "${cmddir}/boxen-install.rb":
+        source  => 'puppet:///modules/homebrew/boxen-install.rb' ;
+      "${installdir}/Library/Homebrew/cmd/boxen-upgrade.rb":
+        source  => 'puppet:///modules/homebrew/boxen-upgrade.rb' ;
+    }
+  }
+
   file {
     [
       "${boxen::config::envdir}/homebrew.sh",
@@ -58,7 +72,6 @@ class homebrew(
       ensure => absent,
   }
 
-  ->
   boxen::env_script { 'homebrew':
     content  => template('homebrew/env.sh.erb'),
     priority => higher,

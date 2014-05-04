@@ -10,13 +10,17 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
   confine :operatingsystem => :darwin
 
   def self.home
-    if boxen_home = Facter.value(:boxen_home)
-      "#{boxen_home}/homebrew"
+    if Facter.value(:use_default_homebrew)
+      "/usr/local"
     else
-      raise "The puppet-homebrew module depends on Boxen"
+      if boxen_home = Facter.value(:boxen_home)
+        "#{boxen_home}/homebrew"
+      else
+        raise "The puppet-homebrew module depends on Boxen"
+      end
     end
   end
-  
+
   def check_min_revision
     rev = min_revision
     return current_revision if rev == :unavailable
@@ -29,7 +33,7 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
     end
     result.exitstatus == 0 ? @resource[:min_revision] : current_revision
   end
-  
+
   def brew_update
     if Puppet.features.bundled_environment?
       Bundler.with_clean_env do
@@ -39,7 +43,7 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
       execute(["brew", "update"], brew_command_opts)
     end
   end
-  
+
   private
 
   def current_revision
@@ -49,7 +53,7 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
       ], command_opts).chomp
     end
   end
-  
+
   def min_revision
     @min_revision ||= Dir.chdir @resource[:path] do
       result = execute([
@@ -86,7 +90,7 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
       raise "unsupported"
     end
   end
-  
+
   def brew_command_opts
     default_command_opts.merge({
       :custom_environment => {

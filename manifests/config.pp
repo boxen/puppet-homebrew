@@ -8,7 +8,11 @@ class homebrew::config {
   include boxen::config
 
   $cachedir   = "${boxen::config::cachedir}/homebrew"
-  $installdir = "${boxen::config::home}/homebrew"
+  if $::use_default_homebrew {
+    $installdir = "/usr/local"
+  } else {
+    $installdir = "${boxen::config::home}/homebrew"
+  }
   $libdir     = "${installdir}/lib"
 
   $cmddir     = "${installdir}/Library/Homebrew/cmd"
