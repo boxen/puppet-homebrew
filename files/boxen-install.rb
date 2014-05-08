@@ -1,7 +1,7 @@
-require "boxen-monkeypatches"
+require "boxen-bottle-hooks"
 require "cmd/install"
 
-# A custom Homebrew command that loads our monkeypatches.
+# A custom Homebrew command that loads our bottle hooks.
 
 module Homebrew
   def self.boxen_install

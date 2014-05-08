@@ -5,20 +5,21 @@
 #   include homebrew
 
 class homebrew(
-  $cachedir    = $homebrew::config::cachedir,
-  $installdir  = $homebrew::config::installdir,
-  $libdir      = $homebrew::config::libdir,
-  $cmddir      = $homebrew::config::cmddir,
-  $tapsdir     = $homebrew::config::tapsdir,
-  $brewsdir    = $homebrew::config::brewsdir,
-  $set_cflags  = true,
-  $set_ldflags = true,
+  $cachedir     = $homebrew::config::cachedir,
+  $installdir   = $homebrew::config::installdir,
+  $libdir       = $homebrew::config::libdir,
+  $cmddir       = $homebrew::config::cmddir,
+  $tapsdir      = $homebrew::config::tapsdir,
+  $brewsdir     = $homebrew::config::brewsdir,
+  $min_revision = $homebrew::config::min_revision,
+  $set_cflags   = true,
+  $set_ldflags  = true,
 ) inherits homebrew::config {
   include boxen::config
   include homebrew::repo
 
   repository { $installdir:
-    source => 'mxcl/homebrew',
+    source => 'Homebrew/homebrew',
     user   => $::boxen_user
   }
 
@@ -26,13 +27,19 @@ class homebrew(
     require => Repository[$installdir]
   }
 
+  # Remove the old monkey patches, from pre #39
+  file {
+    "${installdir}/Library/Homebrew/boxen-monkeypatches.rb":
+      ensure => 'absent',
+  }
+
   file {
     [$cachedir, $tapsdir, $cmddir, $libdir]:
       ensure => 'directory' ;
 
-    # shim for monkeypatches
-    "${installdir}/Library/Homebrew/boxen-monkeypatches.rb":
-      source  => 'puppet:///modules/homebrew/boxen-monkeypatches.rb' ;
+    # shim for bottle hooks
+    "${installdir}/Library/Homebrew/boxen-bottle-hooks.rb":
+      source  => 'puppet:///modules/homebrew/boxen-bottle-hooks.rb' ;
     "${cmddir}/boxen-latest.rb":
       source  => 'puppet:///modules/homebrew/boxen-latest.rb' ;
     "${cmddir}/boxen-install.rb":
