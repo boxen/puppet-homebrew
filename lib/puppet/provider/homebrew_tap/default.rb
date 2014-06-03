@@ -36,15 +36,12 @@ Puppet::Type.type(:homebrew_tap).provide :default do
   private
 
   def install_dir
-    @install_dir ||= "#{self.class.taps_dir}/#{hyphenated_source}"
+    @install_dir ||= "#{self.class.taps_dir}/#{tap_name}"
   end
 
-  def hyphenate(s)
-    s.gsub('/', '-')
-  end
-
-  def hyphenated_source
-    @hyphenated_source ||= hyphenate(@resource[:source])
+  def tap_name
+    user, repo = @resource[:source].split("/")
+    "#{user}/homebrew-#{repo}"
   end
 
   # Override default `execute` to run super method in a clean
