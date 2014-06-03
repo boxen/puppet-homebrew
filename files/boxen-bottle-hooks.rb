@@ -24,7 +24,7 @@ module BoxenBottles
   def self.bottled?(formula)
     url = URI.parse self.url(formula)
 
-    Net::HTTP.start url.host do |http|
+    self.net_http.start url.host do |http|
       http.open_timeout = 1
       http.read_timeout = 1
 
@@ -53,6 +53,15 @@ module BoxenBottles
     system "tar", "-xf", cache_file, "-C", HOMEBREW_CELLAR
 
     true
+  end
+
+  def self.net_http
+    proxy = ENV['https_proxy'] || ENV['http_proxy']
+    if proxy
+      Net::HTTP::Proxy(URI.parse(proxy).host, URI.parse(proxy).port)
+    else
+      Net::HTTP
+    end
   end
 end
 
