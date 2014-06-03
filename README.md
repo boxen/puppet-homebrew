@@ -1,6 +1,6 @@
 # Homebrew Puppet Module for Boxen
 
-[![Build Status](https://travis-ci.org/boxen/puppet-homebrew.png?branch=master)](https://travis-ci.org/boxen/puppet-homebrew)
+[![Build Status](https://travis-ci.org/boxen/puppet-homebrew.svg?branch=master)](https://travis-ci.org/boxen/puppet-homebrew)
 
 Install [Homebrew](http://brew.sh), a package manager for Mac OS X.
 
