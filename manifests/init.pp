@@ -40,9 +40,9 @@ class homebrew(
 
   if $::use_default_homebrew {
     exec { 'chmod_installdir':
-      command => "mkdir -p /usr/local; /bin/chmod g+rwx $installdir; /usr/bin/chgrp admin $installdir",
-      unless => "test `stat -f %g $installdir` -eq `grep ^admin: /etc/group | cut -d: -f3`",
-      user => root
+      command => "mkdir -p /usr/local; /bin/chmod g+rwx ${installdir}; /usr/bin/chgrp admin ${installdir}",
+      unless  => "test `stat -f %g ${installdir}` -eq `grep ^admin: /etc/group | cut -d: -f3`",
+      user    => root
     }
 
     file {

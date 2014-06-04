@@ -9,7 +9,7 @@ class homebrew::config {
 
   $cachedir   = "${boxen::config::cachedir}/homebrew"
   if $::use_default_homebrew {
-    $installdir = "/usr/local"
+    $installdir = '/usr/local'
   } else {
     $installdir = "${boxen::config::home}/homebrew"
   }
