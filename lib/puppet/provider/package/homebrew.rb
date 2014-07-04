@@ -21,6 +21,14 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
     end
   end
 
+  def self.cache
+    if boxen_home = Facter.value(:boxen_home)
+      "#{boxen_home}/cache/homebrew"
+    else
+      ENV["HOMEBREW_CACHE"] || "/Library/Caches/Homebrew"
+    end
+  end
+
   confine  :operatingsystem => :darwin
 
   def self.active?(name, version)
@@ -183,7 +191,8 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
         "CPPFLAGS"        => "-O2",
         "CXXFLAGS"        => "-O2",
         "BOXEN_S3_HOST"   => "#{s3_host}",
-        "BOXEN_S3_BUCKET" => "#{s3_bucket}"
+        "BOXEN_S3_BUCKET" => "#{s3_bucket}",
+        "HOMEBREW_CACHE"  => self.class.cache
       },
       :failonfail         => true,
       :uid                => default_user
