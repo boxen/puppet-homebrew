@@ -9,6 +9,6 @@ require "boxen-bottle-hooks"
 module Homebrew
   def self.boxen_latest
     raise FormulaUnspecifiedError if ARGV.named.empty?
-    puts ARGV.formulae.first.version
+    puts ARGV.formulae.first.pkg_version
   end
 end
