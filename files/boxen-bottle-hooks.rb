@@ -49,8 +49,11 @@ module BoxenBottles
     success = system "curl", "--fail", "--progress-bar", "--output", cache_file, url
     raise "Boxen: Failed to download resource \"#{name}\"" unless success
 
-    ohai "Boxen: Pouring #{file}"
-    system "tar", "-xf", cache_file, "-C", HOMEBREW_CELLAR
+    bottle_install_dir = formula.prefix
+    bottle_install_dir.mkpath
+
+    ohai "Boxen: Pouring #{file} to #{bottle_install_dir}"
+    system "tar", "-xf", cache_file, "-C", bottle_install_dir, "--strip-components=2"
 
     true
   end
