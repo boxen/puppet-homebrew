@@ -1,15 +1,35 @@
 # Bottle hooks for Homebrew.
 require "hooks/bottles"
+require "software_spec"
 require "utils"
 require "net/http"
 require "uri"
+
+module BoxenMirror
+  def self.host
+    ENV['BOXEN_S3_HOST'] || 's3.amazonaws.com'
+  end
+
+  def self.bucket
+    ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
+  end
+
+  def self.url
+    "http://#{host}/#{bucket}/homebrew/#{MacOS.version}"
+  end
+end
+
+class BottleSpecification
+  DEFAULT_ROOT_URL = BoxenMirror.url.freeze
+end
 
 # This monkeypatching sidesteps Homebrew's normal bottle support and uses our,
 # uh, homebrewed S3 binaries. This support is patched in instead of handled in
 # Puppet so that manual installs and indirect dependencies are also supported.
 module BoxenBottles
   def self.file(formula)
-    "#{formula.name}-#{formula.version}.tar.bz2"
+    spec = formula.active_spec
+    Bottle::Filename.create(formula, bottle_tag, spec.revision)
   end
 
   def self.url(formula)
@@ -22,6 +42,8 @@ module BoxenBottles
   end
 
   def self.bottled?(formula)
+    return false
+
     url = URI.parse self.url(formula)
 
     self.net_http.start url.host do |http|
@@ -65,10 +87,10 @@ module BoxenBottles
   end
 end
 
-Homebrew::Hooks::Bottles.setup_formula_has_bottle do |formula|
-  BoxenBottles.bottled?(formula)
-end
-
-Homebrew::Hooks::Bottles.setup_pour_formula_bottle do |formula|
-  BoxenBottles.pour(formula)
-end
+#Homebrew::Hooks::Bottles.setup_formula_has_bottle do |formula|
+#  BoxenBottles.bottled?(formula)
+#end
+#
+#Homebrew::Hooks::Bottles.setup_pour_formula_bottle do |formula|
+#  BoxenBottles.pour(formula)
+#end
