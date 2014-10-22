@@ -9,7 +9,8 @@ require "uri"
 # Puppet so that manual installs and indirect dependencies are also supported.
 module BoxenBottles
   def self.file(formula)
-    "#{formula.name}-#{formula.version}.tar.bz2"
+    revision = formula.revision > 0 ? "_#{formula.revision}" : ""
+    "#{formula.name}-#{formula.version}#{revision}.tar.bz2"
   end
 
   def self.url(formula)
