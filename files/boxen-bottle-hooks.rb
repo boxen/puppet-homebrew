@@ -18,7 +18,7 @@ module BoxenBottles
     host   = ENV['BOXEN_S3_HOST'] || 's3.amazonaws.com'
     bucket = ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
 
-    "http://#{host}/#{bucket}/homebrew/#{os}/#{file}"
+    "http://#{bucket}.#{host}/homebrew/#{os}/#{file}"
   end
 
   def self.bottled?(formula)
