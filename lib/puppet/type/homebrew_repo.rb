@@ -1,7 +1,7 @@
 Puppet::Type.newtype(:homebrew_repo) do
   newparam(:path) do
     isnamevar
-    
+
     validate do |v|
       if v.nil?
         raise Puppet::ParseError, "Homebrew_repo requires a path parameter!"
@@ -13,7 +13,7 @@ Puppet::Type.newtype(:homebrew_repo) do
     newvalue(/.+/) do
       provider.brew_update
     end
-    
+
     def retrieve
       provider.check_min_revision
     end
