@@ -13,6 +13,10 @@ include homebrew
 
 class clojure {
   homebrew::tap { 'homebrew/versions': }
+  # Or use brew any-tap (https://github.com/telemachus/homebrew-anytap)
+  homebrew::anytap { 'foo/bar':
+    url => 'git@git.example.com:foo/homebrew-bar.git'
+  }
 
   homebrew::formula {
     'clojure': ; # source defaults to puppet:///modules/clojure/brews/clojure.rb
