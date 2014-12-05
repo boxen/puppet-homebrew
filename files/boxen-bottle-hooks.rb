@@ -15,14 +15,14 @@ module BoxenBottles
   def self.url(formula)
     os     = MacOS.version
     file   = self.file(formula)
-    path = "/homebrew/#{os}/#{file}"
+    path = "/#{os}/#{file}"
 
-    if ENV['BOXEN_DOWNLOAD_BASE_URL']
-      ENV['BOXEN_DOWNLOAD_BASE_URL'] + path
+    if ENV['BOXEN_HOMEBREW_BOTTLE_URL']
+      ENV['BOXEN_HOMEBREW_BOTTLE_URL'] + path
     else
       host   = ENV['BOXEN_S3_HOST'] || 's3.amazonaws.com'
       bucket = ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
-      "http://#{bucket}.#{host}" + path
+      "http://#{bucket}.#{host}/homebrew" + path
     end
   end
 

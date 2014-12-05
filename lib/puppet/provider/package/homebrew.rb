@@ -181,22 +181,22 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
     Facter.value(:boxen_s3_bucket) || 'boxen-downloads'
   end
 
-  def download_url_base
-    Facter.value(:boxen_download_url_base)
+  def bottle_url
+    Facter.value(:homebrew_bottle_url)
   end
 
   def command_opts
     @command_opts ||= {
       :combine            => true,
       :custom_environment => {
-        "HOME"                    => "/#{homedir_prefix}/#{default_user}",
-        "PATH"                    => "#{self.class.home}/bin:/usr/bin:/usr/sbin:/bin:/sbin",
-        "CFLAGS"                  => "-O2",
-        "CPPFLAGS"                => "-O2",
-        "CXXFLAGS"                => "-O2",
-        "BOXEN_DOWNLOAD_URL_BASE" => download_url_base,
-        "HOMEBREW_CACHE"          => self.class.cache,
-        "HOMEBREW_BUILD_BOTTLE"   => "1"
+        "HOME"                      => "/#{homedir_prefix}/#{default_user}",
+        "PATH"                      => "#{self.class.home}/bin:/usr/bin:/usr/sbin:/bin:/sbin",
+        "CFLAGS"                    => "-O2",
+        "CPPFLAGS"                  => "-O2",
+        "CXXFLAGS"                  => "-O2",
+        "BOXEN_HOMEBREW_BOTTLE_URL" => bottle_url,
+        "HOMEBREW_CACHE"            => self.class.cache,
+        "HOMEBREW_BUILD_BOTTLE"     => "1"
       },
       :failonfail         => true,
       :uid                => default_user
