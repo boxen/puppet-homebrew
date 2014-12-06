@@ -14,10 +14,14 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
   # A list of `ensure` values that aren't explicit versions.
 
   def self.home
-    if boxen_home = Facter.value(:boxen_home)
-      "#{boxen_home}/homebrew"
+    if Facter.value(:use_default_homebrew)
+      "/usr/local"
     else
-      "/usr/local/homebrew"
+      if boxen_home = Facter.value(:boxen_home)
+        "#{boxen_home}/homebrew"
+      else
+        "/usr/local/homebrew"
+      end
     end
   end
 
@@ -76,14 +80,22 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
       # Okay, so there's a version already active, it's not the right
       # one, and the right one isn't installed. That's an upgrade.
 
-      execute [ "brew", "boxen-upgrade", @resource[:name] ], command_opts
+      if Facter.value(:use_default_homebrew)
+        execute [ "brew", "upgrade", @resource[:name] ], command_opts
+      else
+        execute [ "brew", "boxen-upgrade", @resource[:name] ], command_opts
+      end
     else
       # Nothing here? Nothing from before? Yay! It's a normal install.
 
       if install_options.any?
         execute [ "brew", "install", @resource[:name], *install_options ].flatten, command_opts
       else
-        execute [ "brew", "boxen-install", @resource[:name] ], command_opts
+        if Facter.value(:use_default_homebrew)
+          execute [ "brew", "install", @resource[:name] ], command_opts
+        else
+          execute [ "brew", "boxen-install", @resource[:name] ], command_opts
+        end
       end
 
     end
@@ -110,7 +122,11 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
   end
 
   def latest
-    execute([ "brew", "boxen-latest", @resource[:name] ], command_opts).strip
+    if Facter.value(:use_default_homebrew)
+      execute([ "brew", "latest", @resource[:name] ], command_opts).strip
+    else
+      execute([ "brew", "boxen-latest", @resource[:name] ], command_opts).strip
+    end
   end
 
   def query
