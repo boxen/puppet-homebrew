@@ -10,11 +10,7 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
   confine :operatingsystem => :darwin
 
   def self.home
-    if boxen_home = Facter.value(:boxen_home)
-      "#{boxen_home}/homebrew"
-    else
-      raise "The puppet-homebrew module depends on Boxen"
-    end
+    Facter.value(:homebrew_root)
   end
   
   def check_min_revision
