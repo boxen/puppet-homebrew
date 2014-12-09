@@ -4,7 +4,7 @@ describe "homebrew::formula" do
   let(:facts) { default_test_facts }
   let(:title) { "clojure" }
 
-  let(:tapdir) { "#{facts[:boxen_home]}/homebrew/Library/Taps/boxen/homebrew-brews" }
+  let(:tapdir) { "#{facts[:homebrew_root]}/Library/Taps/boxen/homebrew-brews" }
 
   context "with source provided" do
     let(:params) do
