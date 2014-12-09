@@ -11,6 +11,7 @@ def default_test_facts
   {
     :boxen_home                  => "/test/boxen",
     :boxen_user                  => "testuser",
+    :homebrew_root               => "/test/boxen/custom/homebrew",
     :macosx_productversion_major => "10.8",
     :osfamily                    => "Darwin",
   }

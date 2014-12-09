@@ -3,7 +3,7 @@ require "spec_helper"
 describe "homebrew" do
   let(:facts) { default_test_facts }
 
-  let(:dir) { "#{facts[:boxen_home]}/homebrew" }
+  let(:dir) { facts[:homebrew_root] }
   let(:cmddir) { "#{dir}/Library/Homebrew/cmd" }
 
   it do

@@ -14,11 +14,7 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
   # A list of `ensure` values that aren't explicit versions.
 
   def self.home
-    if boxen_home = Facter.value(:boxen_home)
-      "#{boxen_home}/homebrew"
-    else
-      "/usr/local/homebrew"
-    end
+    Facter.value(:homebrew_root)
   end
 
   def self.cache
@@ -29,7 +25,7 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
     end
   end
 
-  confine  :operatingsystem => :darwin
+  confine :operatingsystem => :darwin
 
   def self.active?(name, version)
     current(name) == version
