@@ -46,7 +46,7 @@ class homebrew(
           ]:
     ensure  => 'directory',
     owner   => $::boxen_user,
-    group   => 'admin',
+    group   => 'staff',
     mode    => '0755',
     require => undef,
     before  => Exec["install homebrew to ${installdir}"],
