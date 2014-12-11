@@ -93,6 +93,7 @@ class homebrew(
   file {
     [
       "${boxen::config::envdir}/homebrew.sh",
+      "${boxen::config::envdir}/30_homebrew.sh",
       "${boxen::config::envdir}/cflags.sh",
       "${boxen::config::envdir}/ldflags.sh",
     ]:
@@ -102,6 +103,6 @@ class homebrew(
   ->
   boxen::env_script { 'homebrew':
     content  => template('homebrew/env.sh.erb'),
-    priority => higher,
+    priority => highest,
   }
 }
