@@ -12,19 +12,60 @@ class homebrew(
   $tapsdir      = $homebrew::config::tapsdir,
   $brewsdir     = $homebrew::config::brewsdir,
   $min_revision = $homebrew::config::min_revision,
+  $repo         = 'Homebrew/homebrew',
   $set_cflags   = true,
   $set_ldflags  = true,
 ) inherits homebrew::config {
   include boxen::config
   include homebrew::repo
 
-  repository { $installdir:
-    source => 'Homebrew/homebrew',
-    user   => $::boxen_user
+  file { [$installdir,
+          "${installdir}/bin",
+          "${installdir}/etc",
+          "${installdir}/include",
+          "${installdir}/lib",
+          "${installdir}/lib/pkgconfig",
+          "${installdir}/Library",
+          "${installdir}/sbin",
+          "${installdir}/share",
+          "${installdir}/share/locale",
+          "${installdir}/share/man",
+          "${installdir}/share/man/man1",
+          "${installdir}/share/man/man2",
+          "${installdir}/share/man/man3",
+          "${installdir}/share/man/man4",
+          "${installdir}/share/man/man5",
+          "${installdir}/share/man/man6",
+          "${installdir}/share/man/man7",
+          "${installdir}/share/man/man8",
+          "${installdir}/share/info",
+          "${installdir}/share/doc",
+          "${installdir}/share/aclocal",
+          "${installdir}/var",
+          "${installdir}/var/log",
+          ]:
+    ensure  => 'directory',
+    owner   => $::boxen_user,
+    group   => 'admin',
+    mode    => '0755',
+    require => undef,
+    before  => Exec["install homebrew to ${installdir}"],
+  }
+
+  exec { "install homebrew to ${installdir}":
+    command => "git init -q &&
+                git config remote.origin.url https://github.com/${repo} &&
+                git config remote.origin.fetch master:refs/remotes/origin/master &&
+                git fetch origin master:refs/remotes/origin/master -n &&
+                git reset --hard origin/master",
+    cwd     => $installdir,
+    user    => $::boxen_user,
+    creates => "${installdir}/.git",
+    require => File[$installdir],
   }
 
   File {
-    require => Repository[$installdir]
+    require => Exec["install homebrew to ${installdir}"],
   }
 
   # Remove the old monkey patches, from pre #39
@@ -34,7 +75,7 @@ class homebrew(
   }
 
   file {
-    [$cachedir, $tapsdir, $cmddir, $libdir]:
+    [$cachedir, $tapsdir, $cmddir]:
       ensure => 'directory' ;
 
     # shim for bottle hooks
