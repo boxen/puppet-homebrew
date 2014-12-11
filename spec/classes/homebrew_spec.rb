@@ -7,9 +7,10 @@ describe "homebrew" do
   let(:cmddir) { "#{dir}/Library/Homebrew/cmd" }
 
   it do
-    should contain_repository(dir).with({
-      :source => "Homebrew/homebrew",
-      :user   => "testuser"
+    should contain_exec("install homebrew to #{dir}").with({
+      :cwd => dir,
+      :user => 'testuser',
+      :creates => "#{dir}/.git"
     })
 
     ["ldflags.sh", "cflags.sh", "homebrew.sh"].each do |f|
