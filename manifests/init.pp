@@ -44,12 +44,12 @@ class homebrew(
           "${installdir}/var",
           "${installdir}/var/log",
           ]:
-    ensure => 'directory',
-    owner  => $::boxen_user,
-    group  => 'admin',
-    mode   => '0755',
+    ensure  => 'directory',
+    owner   => $::boxen_user,
+    group   => 'admin',
+    mode    => '0755',
     require => undef,
-    before => Exec["install homebrew to ${installdir}"],
+    before  => Exec["install homebrew to ${installdir}"],
   }
 
   exec { "install homebrew to ${installdir}":
