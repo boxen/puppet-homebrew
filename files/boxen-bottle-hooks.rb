@@ -16,7 +16,7 @@ module BoxenBottles
   def self.url(formula)
     os     = MacOS.version
     file   = self.file(formula)
-    path = "#{Base64.strict_encode64(HOMEBREW_CELLAR)}/#{os}/#{file}"
+    path = "/#{Base64.strict_encode64(HOMEBREW_CELLAR)}/#{os}/#{file}"
 
     if ENV['BOXEN_HOMEBREW_BOTTLE_URL']
       ENV['BOXEN_HOMEBREW_BOTTLE_URL'] + path
