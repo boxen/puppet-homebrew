@@ -3,6 +3,7 @@ require "hooks/bottles"
 require "utils"
 require "net/http"
 require "uri"
+require "base64"
 
 # This monkeypatching sidesteps Homebrew's normal bottle support and uses our,
 # uh, homebrewed S3 binaries. This support is patched in instead of handled in
