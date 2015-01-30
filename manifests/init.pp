@@ -75,18 +75,18 @@ class homebrew(
   }
 
   file {
-    [$cachedir, $tapsdir, $cmddir]:
+    [$cachedir, $tapsdir, $cmddir, "${brewsdir}/cmd"]:
       ensure => 'directory' ;
 
     # shim for bottle hooks
-    "${installdir}/Library/Homebrew/boxen-bottle-hooks.rb":
+    "${brewsdir}/cmd/boxen-bottle-hooks.rb":
       source  => 'puppet:///modules/homebrew/boxen-bottle-hooks.rb' ;
-    "${cmddir}/boxen-latest.rb":
-      source  => 'puppet:///modules/homebrew/boxen-latest.rb' ;
-    "${cmddir}/boxen-install.rb":
-      source  => 'puppet:///modules/homebrew/boxen-install.rb' ;
-    "${installdir}/Library/Homebrew/cmd/boxen-upgrade.rb":
-      source  => 'puppet:///modules/homebrew/boxen-upgrade.rb' ;
+    "${brewsdir}/cmd/brew-boxen-latest.rb":
+      source  => 'puppet:///modules/homebrew/brew-boxen-latest.rb' ;
+    "${brewsdir}/cmd/brew-boxen-install.rb":
+      source  => 'puppet:///modules/homebrew/brew-boxen-install.rb' ;
+    "${brewsdir}/cmd/brew-boxen-upgrade.rb":
+      source  => 'puppet:///modules/homebrew/brew-boxen-upgrade.rb' ;
   }
 
   ->
