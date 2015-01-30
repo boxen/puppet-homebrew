@@ -10,23 +10,15 @@ define homebrew::formula($source = undef) {
     default => $source
   }
 
-  $boxen_tapdir = "${homebrew::tapsdir}/boxen"
-
-  ensure_resource('file', $boxen_tapdir, {
-    'ensure' => 'directory',
-    'owner'  => $::boxen_user,
-    'group'  => 'staff',
-  })
-
-  ensure_resource('file', "${boxen_tapdir}/homebrew-brews", {
+  ensure_resource('file', $homebrew::brewsdir, {
     'ensure'  => 'directory',
     'owner'   => $::boxen_user,
     'group'   => 'staff',
-    'require' => File[$boxen_tapdir],
+    'require' => File[$homebrew::brewsdir],
   })
 
-  file { "${boxen_tapdir}/homebrew-brews/${name}.rb":
+  file { "${homebrew::brewsdir}/${name}.rb":
     source  => $formula_source,
-    require => File["${boxen_tapdir}/homebrew-brews"]
+    require => File[$homebrew::brewsdir],
   }
 }
