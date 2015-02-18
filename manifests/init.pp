@@ -74,6 +74,17 @@ class homebrew(
       ensure => 'absent',
   }
 
+  # Remove the old shim for bottle hooks, from pre #75
+  file {
+    [
+      "${installdir}/Library/Homebrew/boxen-bottle-hooks.rb",
+      "${cmddir}/boxen-latest.rb",
+      "${cmddir}/boxen-install.rb",
+      "${cmddir}/boxen-upgrade.rb",
+    ]:
+      ensure => 'absent',
+  }
+
   file {
     [$cachedir, $tapsdir, $cmddir, $brewsdir, "${brewsdir}/cmd"]:
       ensure => 'directory' ;
