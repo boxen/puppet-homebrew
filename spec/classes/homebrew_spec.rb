@@ -4,7 +4,7 @@ describe "homebrew" do
   let(:facts) { default_test_facts }
 
   let(:dir) { facts[:homebrew_root] }
-  let(:cmddir) { "#{dir}/Library/Homebrew/cmd" }
+  let(:cmddir) { "#{dir}/Library/Taps/boxen/homebrew-brews/cmd" }
 
   it do
     should contain_exec("install homebrew to #{dir}").with({
@@ -20,12 +20,12 @@ describe "homebrew" do
 
     should contain_boxen__env_script("homebrew")
 
-    should contain_file("#{dir}/Library/Homebrew/boxen-bottle-hooks.rb").
+    should contain_file("#{cmddir}/boxen-bottle-hooks.rb").
       with_source("puppet:///modules/homebrew/boxen-bottle-hooks.rb")
 
     ["latest", "install", "upgrade"].each do |cmd|
-      should contain_file("#{cmddir}/boxen-#{cmd}.rb").
-        with_source("puppet:///modules/homebrew/boxen-#{cmd}.rb")
+      should contain_file("#{cmddir}/brew-boxen-#{cmd}.rb").
+        with_source("puppet:///modules/homebrew/brew-boxen-#{cmd}.rb")
     end
 
     should contain_file("#{dir}/lib").with_ensure("directory")
