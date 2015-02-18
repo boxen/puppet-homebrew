@@ -75,7 +75,7 @@ class homebrew(
   }
 
   file {
-    [$cachedir, $tapsdir, $cmddir, "${brewsdir}/cmd"]:
+    [$cachedir, $tapsdir, $cmddir, $brewsdir, "${brewsdir}/cmd"]:
       ensure => 'directory' ;
 
     # shim for bottle hooks

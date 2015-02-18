@@ -10,13 +10,6 @@ define homebrew::formula($source = undef) {
     default => $source
   }
 
-  ensure_resource('file', $homebrew::brewsdir, {
-    'ensure'  => 'directory',
-    'owner'   => $::boxen_user,
-    'group'   => 'staff',
-    'require' => File[$homebrew::brewsdir],
-  })
-
   file { "${homebrew::brewsdir}/${name}.rb":
     source  => $formula_source,
     require => File[$homebrew::brewsdir],
