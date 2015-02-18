@@ -6,4 +6,4 @@ require File.expand_path("#{File.dirname(__FILE__)}/boxen-bottle-hooks")
 #
 #   $ brew boxen-latest <formula-name>
 raise FormulaUnspecifiedError if ARGV.named.empty?
-puts ARGV.formulae.first.version
+puts ARGV.formulae.first.pkg_version
