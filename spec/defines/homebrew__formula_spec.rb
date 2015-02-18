@@ -14,12 +14,6 @@ describe "homebrew::formula" do
     end
 
     it do
-      should contain_file(tapdir).with({
-        :ensure => "directory",
-        :owner  => "testuser",
-        :group  => "staff"
-      })
-
       should contain_file("#{tapdir}/clojure.rb").with({
         :source => "puppet:///modules/whatever/my_special_formula.rb"
       })
@@ -28,12 +22,6 @@ describe "homebrew::formula" do
 
   context "without source provided" do
     it do
-      should contain_file(tapdir).with({
-        :ensure => "directory",
-        :owner  => "testuser",
-        :group  => "staff"
-      })
-
       should contain_file("#{tapdir}/clojure.rb").with({
         :source => "puppet:///modules/main/brews/clojure.rb"
       })
