@@ -13,17 +13,27 @@ module BoxenBottles
     "#{formula.name}-#{formula.pkg_version}.tar.bz2"
   end
 
+  # Keep in sync with same-named function in:
+  # https://github.com/boxen/our-boxen/blob/master/script/sync
+  def self.s3_cellar
+    case HOMEBREW_CELLAR.to_s
+    when "/opt/boxen/homebrew/Cellar" then ""
+    when "/usr/local/Cellar" then "default/"
+    else "#{Base64.strict_encode64(HOMEBREW_CELLAR.to_s)}/"
+    end
+  end
+
   def self.url(formula)
     os     = MacOS.version
     file   = self.file(formula)
-    path = "/#{Base64.strict_encode64(HOMEBREW_CELLAR)}/#{os}/#{file}"
+    path = "/#{s3_cellar}#{os}/#{file}"
 
     if ENV['BOXEN_HOMEBREW_BOTTLE_URL']
       ENV['BOXEN_HOMEBREW_BOTTLE_URL'] + path
     else
       host   = ENV['BOXEN_S3_HOST'] || 's3.amazonaws.com'
       bucket = ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
-      "http://#{bucket}.#{host}/homebrew" + path
+      "https://#{host}/#{bucket}/homebrew" + path
     end
   end
 

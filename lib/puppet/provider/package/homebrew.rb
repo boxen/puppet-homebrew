@@ -187,12 +187,8 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
       :custom_environment => {
         "HOME"                      => "/#{homedir_prefix}/#{default_user}",
         "PATH"                      => "#{self.class.home}/bin:/usr/bin:/usr/sbin:/bin:/sbin",
-        "CFLAGS"                    => "-O2",
-        "CPPFLAGS"                  => "-O2",
-        "CXXFLAGS"                  => "-O2",
         "BOXEN_HOMEBREW_BOTTLE_URL" => bottle_url,
         "HOMEBREW_CACHE"            => self.class.cache,
-        "HOMEBREW_BUILD_BOTTLE"     => "1"
       },
       :failonfail         => true,
       :uid                => default_user
