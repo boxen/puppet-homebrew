@@ -23,7 +23,7 @@ module BoxenBottles
     else
       host   = ENV['BOXEN_S3_HOST'] || 's3.amazonaws.com'
       bucket = ENV['BOXEN_S3_BUCKET'] || 'boxen-downloads'
-      "http://#{bucket}.#{host}/homebrew" + path
+      "https://#{host}/#{bucket}/homebrew" + path
     end
   end
 
