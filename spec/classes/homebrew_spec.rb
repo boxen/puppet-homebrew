@@ -23,7 +23,7 @@ describe "homebrew" do
     should contain_file("#{cmddir}/boxen-bottle-hooks.rb").
       with_source("puppet:///modules/homebrew/boxen-bottle-hooks.rb")
 
-    ["latest", "install", "upgrade"].each do |cmd|
+    ["latest", "install"].each do |cmd|
       should contain_file("#{cmddir}/brew-boxen-#{cmd}.rb").
         with_source("puppet:///modules/homebrew/brew-boxen-#{cmd}.rb")
     end
