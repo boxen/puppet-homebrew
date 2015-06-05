@@ -103,8 +103,6 @@ class homebrew(
       source  => 'puppet:///modules/homebrew/brew-boxen-latest.rb' ;
     "${brewsdir}/cmd/brew-boxen-install.rb":
       source  => 'puppet:///modules/homebrew/brew-boxen-install.rb' ;
-    "${brewsdir}/cmd/brew-boxen-upgrade.rb":
-      source  => 'puppet:///modules/homebrew/brew-boxen-upgrade.rb' ;
   }
 
   ->
@@ -114,6 +112,7 @@ class homebrew(
       "${boxen::config::envdir}/30_homebrew.sh",
       "${boxen::config::envdir}/cflags.sh",
       "${boxen::config::envdir}/ldflags.sh",
+      "${brewsdir}/cmd/brew-boxen-upgrade.rb",
     ]:
       ensure => absent,
   }

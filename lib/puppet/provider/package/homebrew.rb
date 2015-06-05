@@ -65,23 +65,22 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
       # If the desired version is already installed, just link or
       # switch. Somebody might've activated another version for
       # testing or something like that.
-
       execute [ "brew", "switch", @resource[:name], version ], command_opts
-
-    elsif self.class.current @resource[:name]
-      # Okay, so there's a version already active, it's not the right
-      # one, and the right one isn't installed. That's an upgrade.
-
-      execute [ "brew", "boxen-upgrade", @resource[:name] ], command_opts
     else
-      # Nothing here? Nothing from before? Yay! It's a normal install.
+      if self.class.current @resource[:name]
+        # Okay, so there's a version already active, it's not the right
+        # one, and the right one isn't installed. That's an upgrade/downgrade.
+        # However, if we use `brew upgrade` then it won't let us downgrade so
+        # instead let's `brew unlink` and then we're allowed to `brew install`
+        # whatever version we want.
+        execute [ "brew", "unlink", @resource[:name] ], command_opts
+      end
 
       if install_options.any?
         execute [ "brew", "install", @resource[:name], *install_options ].flatten, command_opts
       else
         execute [ "brew", "boxen-install", @resource[:name] ], command_opts
       end
-
     end
   end
 
