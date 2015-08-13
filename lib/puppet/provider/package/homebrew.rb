@@ -18,7 +18,8 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
   end
 
   def self.cache
-    if boxen_home = Facter.value(:boxen_home)
+    boxen_home = Facter.value(:boxen_home)
+    if boxen_home && File.exist?("#{boxen_home}/cache/homebrew")
       "#{boxen_home}/cache/homebrew"
     else
       ENV["HOMEBREW_CACHE"] || "/Library/Caches/Homebrew"
