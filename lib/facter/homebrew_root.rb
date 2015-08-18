@@ -4,5 +4,11 @@ Facter.add(:homebrew_root) do
   # Explicit, low weight makes this easily overridable
   has_weight 1
 
-  setcode { "#{Facter.value(:boxen_home)}/homebrew" }
+  setcode do
+    if File.exist? "#{Facter.value(:boxen_home)}/homebrew/bin/brew"
+      "#{Facter.value(:boxen_home)}/homebrew"
+    else
+      "/usr/local"
+    end
+  end
 end
