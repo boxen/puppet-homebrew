@@ -119,6 +119,10 @@ class homebrew(
 
   ->
   boxen::env_script { 'homebrew':
+    content  => template('homebrew/env.fish.erb'),
+    priority => highest,
+  }
+  boxen::env_script { 'homebrew':
     content  => template('homebrew/env.sh.erb'),
     priority => highest,
   }
