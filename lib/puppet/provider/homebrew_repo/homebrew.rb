@@ -84,7 +84,7 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
   end
   
   def brew_command_opts
-    default_command_opts.merge({
+    build_command_opts.merge({
       :custom_environment => {
         "HOME"            => "/#{homedir_prefix}/#{@resource[:user]}",
         "PATH"            => "#{self.class.home}/bin:/usr/bin:/usr/sbin:/bin:/sbin",
