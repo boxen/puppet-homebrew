@@ -12,7 +12,7 @@ class homebrew(
   $tapsdir      = $homebrew::config::tapsdir,
   $brewsdir     = $homebrew::config::brewsdir,
   $min_revision = $homebrew::config::min_revision,
-  $repo         = 'Homebrew/homebrew',
+  $repo         = 'Homebrew/brew',
   $set_cflags   = true,
   $set_ldflags  = true,
 ) inherits homebrew::config {
