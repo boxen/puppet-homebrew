@@ -20,8 +20,22 @@ Puppet::Type.type(:package).provide :brewcask,
   end
 
   def self.current(name)
-    caskdir = Pathname.new "#{caskroom}/#{name}"
+    caskroom_path = if legacy_caskroom
+      legacy_caskroom
+    else
+      new_caskroom
+    end
+
+    caskdir = Pathname.new "#{caskroom_path}/#{name}"
     caskdir.directory? && caskdir.children.size >= 1 && caskdir.children.sort.last.to_s
+  end
+
+  def legacy_caskroom
+    @legacy_caskroom ||= Pathname.new('/opt/homebrew-cask/Caskroom')
+  end
+
+  def new_caskroom
+    @new_caskroom ||= Pathname.new("#{self.class.home}/Caskroom")
   end
 
   def query
