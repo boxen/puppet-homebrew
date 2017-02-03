@@ -110,6 +110,7 @@ class homebrew(
     [
       "${boxen::config::envdir}/homebrew.sh",
       "${boxen::config::envdir}/30_homebrew.sh",
+      "${boxen::config::envdir}/10_brewcask.sh",
       "${boxen::config::envdir}/cflags.sh",
       "${boxen::config::envdir}/ldflags.sh",
       "${brewsdir}/cmd/brew-boxen-upgrade.rb",
