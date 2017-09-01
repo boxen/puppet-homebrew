@@ -57,7 +57,9 @@ class homebrew(
                 git config remote.origin.url https://github.com/${repo} &&
                 git config remote.origin.fetch master:refs/remotes/origin/master &&
                 git fetch origin master:refs/remotes/origin/master -n &&
-                git reset --hard origin/master",
+                git reset --hard origin/master &&
+                git fetch --tags &&
+                git checkout 1.2.6",
     cwd     => $installdir,
     user    => $::boxen_user,
     creates => "${installdir}/.git",
