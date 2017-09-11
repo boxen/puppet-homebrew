@@ -20,9 +20,6 @@ describe "homebrew" do
 
     should contain_boxen__env_script("homebrew")
 
-    should contain_file("#{cmddir}/boxen-bottle-hooks.rb").
-      with_source("puppet:///modules/homebrew/boxen-bottle-hooks.rb")
-
     ["latest", "install"].each do |cmd|
       should contain_file("#{cmddir}/brew-boxen-#{cmd}.rb").
         with_source("puppet:///modules/homebrew/brew-boxen-#{cmd}.rb")
