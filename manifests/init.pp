@@ -19,8 +19,7 @@ class homebrew(
   include boxen::config
   include homebrew::repo
 
-  file { [$installdir,
-          "${installdir}/bin",
+  file { ["${installdir}/bin",
           "${installdir}/etc",
           "${installdir}/include",
           "${installdir}/lib",
@@ -61,7 +60,6 @@ class homebrew(
     cwd     => $installdir,
     user    => $::boxen_user,
     creates => "${installdir}/.git",
-    require => File[$installdir],
   }
 
   File {
