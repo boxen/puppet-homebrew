@@ -80,7 +80,7 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
       if install_options.any?
         execute [ "brew", "install", @resource[:name], *install_options ].flatten, command_opts
       else
-        execute [ "brew", "boxen-install", @resource[:name] ], command_opts
+        execute [ "brew", "install", @resource[:name] ].flatten, command_opts
       end
     end
   end
@@ -106,7 +106,13 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
   end
 
   def latest
-    execute([ "brew", "boxen-latest", @resource[:name] ], command_opts).strip
+    installation_check = execute([ "brew", "ls", "--versions", @resource[:name] ])
+
+    if installation_check.empty?
+      install
+    else
+      execute([ "brew", "upgrade", @resource[:name] ], command_opts).strip
+    end
   end
 
   def query

@@ -94,12 +94,7 @@ class homebrew(
       $brewsdir,
       "${brewsdir}/cmd"
     ]:
-      ensure => 'directory' ;
-
-    "${brewsdir}/cmd/brew-boxen-latest.rb":
-      source  => 'puppet:///modules/homebrew/brew-boxen-latest.rb' ;
-    "${brewsdir}/cmd/brew-boxen-install.rb":
-      source  => 'puppet:///modules/homebrew/brew-boxen-install.rb' ;
+      ensure => 'directory';
   }
 
   ->
