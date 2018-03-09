@@ -106,11 +106,7 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
   end
 
   def latest
-    if self.class.available?(@resource[:name], version)
-      execute([ "brew", "upgrade", @resource[:name] ], command_opts).strip
-    else
-      install
-    end
+    execute([ "brew", "ls", "--versions", @resource[:name] ], command_opts).split.last
   end
 
   def query
