@@ -106,7 +106,7 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
   end
 
   def latest
-    execute([ "brew", "ls", "--versions", @resource[:name] ], command_opts).split.last
+    execute([ "brew", "ls", "--versions", @resource[:name] ], command_opts.merge({ :failonfail => false })).split.last
   end
 
   def query
