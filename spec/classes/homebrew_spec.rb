@@ -7,10 +7,10 @@ describe "homebrew" do
   let(:cmddir) { "#{dir}/Library/Taps/boxen/homebrew-brews/cmd" }
 
   it do
-    should contain_exec("install homebrew to #{dir}").with({
+    should contain_exec("install homebrew to #{dir}/Homebrew").with({
       :cwd => dir,
       :user => 'testuser',
-      :creates => "#{dir}/.git"
+      :creates => "#{dir}/Homebrew/.git"
     })
 
     ["ldflags.sh", "cflags.sh", "homebrew.sh"].each do |f|
