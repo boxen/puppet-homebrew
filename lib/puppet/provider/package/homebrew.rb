@@ -106,7 +106,10 @@ Puppet::Type.type(:package).provide :homebrew, :parent => Puppet::Provider::Pack
   end
 
   def latest
-    installation_check = execute([ "brew", "ls", "--versions", @resource[:name] ], command_opts).strip
+    installation_check = execute(
+      [ "brew", "ls", "--versions", @resource[:name] ],
+      command_opts.merge({ :failonfail => false })
+    ).strip
 
     if installation_check.empty?
       install
