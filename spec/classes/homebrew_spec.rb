@@ -8,7 +8,7 @@ describe "homebrew" do
 
   it do
     should contain_exec("install homebrew to #{dir}/Homebrew").with({
-      :cwd => dir,
+      :cwd => "#{dir}/Homebrew",
       :user => 'testuser',
       :creates => "#{dir}/Homebrew/.git"
     })
