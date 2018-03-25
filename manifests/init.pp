@@ -5,22 +5,22 @@
 #   include homebrew
 
 class homebrew(
-  $cachedir     = $homebrew::config::cachedir,
-  $installdir   = $homebrew::config::installdir,
-  $libdir       = $homebrew::config::libdir,
-  $cmddir       = $homebrew::config::cmddir,
-  $tapsdir      = $homebrew::config::tapsdir,
-  $brewsdir     = $homebrew::config::brewsdir,
-  $min_revision = $homebrew::config::min_revision,
-  $repo         = 'Homebrew/brew',
-  $set_cflags   = true,
-  $set_ldflags  = true,
+  $cachedir      = $homebrew::config::cachedir,
+  $installdir    = $homebrew::config::installdir,
+  $repositorydir = $homebrew::config::repositorydir,
+  $libdir        = $homebrew::config::libdir,
+  $cmddir        = $homebrew::config::cmddir,
+  $tapsdir       = $homebrew::config::tapsdir,
+  $brewsdir      = $homebrew::config::brewsdir,
+  $min_revision  = $homebrew::config::min_revision,
+  $repo          = 'Homebrew/brew',
+  $set_cflags    = true,
+  $set_ldflags   = true,
 ) inherits homebrew::config {
   include boxen::config
   include homebrew::repo
 
-  file { [$installdir,
-          "${installdir}/bin",
+  file { ["${installdir}/bin",
           "${installdir}/etc",
           "${installdir}/include",
           "${installdir}/lib",
@@ -43,29 +43,29 @@ class homebrew(
           "${installdir}/share/aclocal",
           "${installdir}/var",
           "${installdir}/var/log",
+          $repositorydir,
           ]:
     ensure  => 'directory',
     owner   => $::boxen_user,
     group   => 'staff',
     mode    => '0755',
     require => undef,
-    before  => Exec["install homebrew to ${installdir}"],
+    before  => Exec["install homebrew to ${repositorydir}"],
   }
 
-  exec { "install homebrew to ${installdir}":
+  exec { "install homebrew to ${repositorydir}":
     command => "git init -q &&
                 git config remote.origin.url https://github.com/${repo} &&
                 git config remote.origin.fetch master:refs/remotes/origin/master &&
                 git fetch origin master:refs/remotes/origin/master -n &&
                 git reset --hard origin/master",
-    cwd     => $installdir,
+    cwd     => $repositorydir,
     user    => $::boxen_user,
-    creates => "${installdir}/.git",
-    require => File[$installdir],
+    creates => "${repositorydir}/.git",
   }
 
   File {
-    require => Exec["install homebrew to ${installdir}"],
+    require => Exec["install homebrew to ${repositorydir}"],
   }
 
   # Remove the old monkey patches, from pre #39
@@ -94,12 +94,7 @@ class homebrew(
       $brewsdir,
       "${brewsdir}/cmd"
     ]:
-      ensure => 'directory' ;
-
-    "${brewsdir}/cmd/brew-boxen-latest.rb":
-      source  => 'puppet:///modules/homebrew/brew-boxen-latest.rb' ;
-    "${brewsdir}/cmd/brew-boxen-install.rb":
-      source  => 'puppet:///modules/homebrew/brew-boxen-install.rb' ;
+      ensure => 'directory';
   }
 
   ->

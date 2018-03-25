@@ -4,13 +4,13 @@
 #
 #   include homebrew::repo
 class homebrew::repo (
-  $installdir   = $homebrew::config::installdir,
-  $min_revision = $homebrew::config::min_revision,
+  $repositorydir = $homebrew::config::repositorydir,
+  $min_revision  = $homebrew::config::min_revision,
 ) {
   require homebrew
 
   if $::osfamily == 'Darwin' {
-    homebrew_repo { $installdir:
+    homebrew_repo { $repositorydir:
       min_revision => $min_revision,
     } -> Package <| |>
   }
